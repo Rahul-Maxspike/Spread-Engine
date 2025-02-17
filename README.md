@@ -7,11 +7,6 @@ Clone the project
   git clone https://github.com/Rahul-Maxspike/Spread-Engine.git
 ```
 
-Go to the project directory
-
-```bash
-
-```
 
 
 
