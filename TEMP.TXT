@@ -1,14 +1,2 @@
-cd VWAP-Algo
 venv\Scripts\activate
-cd .\SpreadEngine
-python MDEngine.py
-
-
-for data
-MDEngine.py
-
-for dashboard
-cd VWAP-Algo
-venv\Scripts\activate
-cd .\SpreadEngine
 python Dashboard.py
