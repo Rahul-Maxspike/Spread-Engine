@@ -1,398 +1,1298 @@
 {
-    "10657924": {
-        "LTP": 0,
-        "instrument_name": "TECHM25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 41463,
-                "instrument_name": "TECHM25FEBFUT",
-                "bid_price": 1681.45
-            },
-            {
-                "spid": 43396,
-                "instrument_name": "TECHM25MARFUT",
-                "ask_price": 1688.25
-            }
-        ],
-        "spread": 6.7999999999999545,
-        "profit": 1189.999999999992,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9973982": {
+        "error": "SPID 9973982 not found in shared memory."
     },
-    "11184032": {
-        "LTP": 0,
-        "instrument_name": "TITAN25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 43400,
-                "instrument_name": "TITAN25MARFUT",
-                "bid_price": 3262.05
-            },
-            {
-                "spid": 73632,
-                "instrument_name": "TITAN25APRFUT",
-                "ask_price": 3286.85
-            }
-        ],
-        "spread": 24.799999999999727,
-        "profit": 4339.999999999953,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "10010573": {
+        "error": "SPID 10010573 not found in shared memory."
     },
-    "10576888": {
-        "LTP": 0,
-        "instrument_name": "ITC25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 41029,
-                "instrument_name": "ITC25MARFUT",
-                "bid_price": 416.05
-            },
-            {
-                "spid": 73464,
-                "instrument_name": "ITC25APRFUT",
-                "ask_price": 418.95
-            }
-        ],
-        "spread": 2.8999999999999773,
-        "profit": 507.499999999996,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
-    },
-    "9029425": {
-        "LTP": 0,
-        "instrument_name": "ADANIENT25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 35057,
-                "instrument_name": "ADANIENT25MARFUT",
-                "bid_price": 2206.9
-            },
-            {
-                "spid": 54833,
-                "instrument_name": "ADANIENT25APRFUT",
-                "ask_price": 2223.75
-            }
-        ],
-        "spread": 16.84999999999991,
-        "profit": 2948.749999999984,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
-    },
-    "11193815": {
-        "LTP": 0,
-        "instrument_name": "WIPRO25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 43438,
-                "instrument_name": "WIPRO25MARFUT",
-                "bid_price": 311.7
-            },
-            {
-                "spid": 73687,
-                "instrument_name": "WIPRO25APRFUT",
-                "ask_price": 313.2
-            }
-        ],
-        "spread": 1.5,
-        "profit": 262.5,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
-    },
-    "10682542": {
-        "LTP": 0,
-        "instrument_name": "WIPRO25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 41559,
-                "instrument_name": "WIPRO25FEBFUT",
-                "bid_price": 310.45
-            },
-            {
-                "spid": 43438,
-                "instrument_name": "WIPRO25MARFUT",
-                "ask_price": 311.95
-            }
-        ],
-        "spread": 1.5,
-        "profit": 262.5,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
-    },
-    "11183004": {
-        "LTP": 0,
-        "instrument_name": "TECHM25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 43396,
-                "instrument_name": "TECHM25MARFUT",
-                "bid_price": 1686.1
-            },
-            {
-                "spid": 73628,
-                "instrument_name": "TECHM25APRFUT",
-                "ask_price": 1694.5
-            }
-        ],
-        "spread": 8.400000000000091,
-        "profit": 1470.000000000016,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "10150273": {
+        "error": "SPID 10150273 not found in shared memory."
     },
     "9003505": {
-        "LTP": 11.5,
-        "instrument_name": "ADANIENT25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 35033,
-                "instrument_name": "ADANIENT25FEBFUT",
-                "ask_price": 2195
-            },
-            {
-                "spid": 35057,
-                "instrument_name": "ADANIENT25MARFUT",
-                "bid_price": 2206.9
-            }
-        ],
-        "spread": 11.900000000000091,
-        "profit": 2082.500000000016,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+        "error": "SPID 9003505 not found in shared memory."
     },
-    "10670734": {
-        "LTP": 43.2,
-        "instrument_name": "ULTRACEMCO25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 41513,
-                "instrument_name": "ULTRACEMCO25FEBFUT",
-                "ask_price": 11472.1
-            },
-            {
-                "spid": 43406,
-                "instrument_name": "ULTRACEMCO25MARFUT",
-                "bid_price": 11510.7
-            }
-        ],
-        "spread": 38.600000000000364,
-        "profit": 6755.000000000064,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9135915": {
+        "error": "SPID 9135915 not found in shared memory."
     },
-    "10056847": {
-        "LTP": 4.65,
-        "instrument_name": "JSWSTEEL25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 39122,
-                "instrument_name": "JSWSTEEL25FEBFUT",
-                "ask_price": 975
-            },
-            {
-                "spid": 41615,
-                "instrument_name": "JSWSTEEL25MARFUT",
-                "bid_price": 979.2
-            }
-        ],
-        "spread": 4.2000000000000455,
-        "profit": 735.000000000008,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "11169345": {
+        "error": "SPID 11169345 not found in shared memory."
     },
-    "9084119": {
-        "LTP": 0,
-        "instrument_name": "ASIANPAINT25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 35215,
-                "instrument_name": "ASIANPAINT25MARFUT",
-                "bid_price": 2250.8
-            },
-            {
-                "spid": 69079,
-                "instrument_name": "ASIANPAINT25APRFUT",
-                "ask_price": 2265.85
-            }
-        ],
-        "spread": 15.049999999999727,
-        "profit": 2633.7499999999523,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "10070565": {
+        "error": "SPID 10070565 not found in shared memory."
     },
-    "10035013": {
-        "LTP": 0,
-        "instrument_name": "ITC25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 39039,
-                "instrument_name": "ITC25FEBFUT",
-                "bid_price": 413.9
-            },
-            {
-                "spid": 41029,
-                "instrument_name": "ITC25MARFUT",
-                "ask_price": 416.4
-            }
-        ],
-        "spread": 2.5,
-        "profit": 437.5,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9141067": {
+        "error": "SPID 9141067 not found in shared memory."
     },
-    "9091804": {
-        "LTP": 0,
-        "instrument_name": "AXISBANK25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 35245,
-                "instrument_name": "AXISBANK25MARFUT",
-                "bid_price": 1013.55
-            },
-            {
-                "spid": 69084,
-                "instrument_name": "AXISBANK25APRFUT",
-                "ask_price": 1020.75
-            }
-        ],
-        "spread": 7.2000000000000455,
-        "profit": 1260.000000000008,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9955779": {
+        "error": "SPID 9955779 not found in shared memory."
     },
-    "10726909": {
-        "LTP": 0,
-        "instrument_name": "JSWSTEEL25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 41615,
-                "instrument_name": "JSWSTEEL25MARFUT",
-                "bid_price": 979.2
-            },
-            {
-                "spid": 73469,
-                "instrument_name": "JSWSTEEL25APRFUT",
-                "ask_price": 984.8
-            }
-        ],
-        "spread": 5.599999999999909,
-        "profit": 979.9999999999841,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9206094": {
+        "error": "SPID 9206094 not found in shared memory."
     },
-    "9074605": {
-        "LTP": 5.85,
-        "instrument_name": "AXISBANK25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 35310,
-                "instrument_name": "AXISBANK25FEBFUT",
-                "ask_price": 1008.4
-            },
-            {
-                "spid": 35245,
-                "instrument_name": "AXISBANK25MARFUT",
-                "bid_price": 1013.55
-            }
-        ],
-        "spread": 5.149999999999977,
-        "profit": 901.249999999996,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "10080681": {
+        "error": "SPID 10080681 not found in shared memory."
     },
-    "11185607": {
-        "LTP": 0,
-        "instrument_name": "ULTRACEMCO25MAR25APRFUT",
-        "related_spids": [
-            {
-                "spid": 43406,
-                "instrument_name": "ULTRACEMCO25MARFUT",
-                "bid_price": 11510.7
-            },
-            {
-                "spid": 73671,
-                "instrument_name": "ULTRACEMCO25APRFUT",
-                "ask_price": 11543.9
-            }
-        ],
-        "spread": 33.19999999999891,
-        "profit": 5809.999999999809,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9083606": {
+        "error": "SPID 9083606 not found in shared memory."
     },
-    "9034639": {
-        "LTP": 9.55,
-        "instrument_name": "ASIANPAINT25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 35154,
-                "instrument_name": "ASIANPAINT25FEBFUT",
-                "ask_price": 2242
-            },
-            {
-                "spid": 35215,
-                "instrument_name": "ASIANPAINT25MARFUT",
-                "bid_price": 2250.8
-            }
-        ],
-        "spread": 8.800000000000182,
-        "profit": 1540.0000000000318,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+    "9993466": {
+        "error": "SPID 9993466 not found in shared memory."
+    },
+    "11196892": {
+        "error": "SPID 11196892 not found in shared memory."
+    },
+    "10572609": {
+        "error": "SPID 10572609 not found in shared memory."
+    },
+    "9281114": {
+        "error": "SPID 9281114 not found in shared memory."
+    },
+    "11122450": {
+        "error": "SPID 11122450 not found in shared memory."
+    },
+    "9077522": {
+        "error": "SPID 9077522 not found in shared memory."
+    },
+    "9003245": {
+        "error": "SPID 9003245 not found in shared memory."
+    },
+    "10290346": {
+        "error": "SPID 10290346 not found in shared memory."
+    },
+    "11169625": {
+        "error": "SPID 11169625 not found in shared memory."
+    },
+    "10643570": {
+        "error": "SPID 10643570 not found in shared memory."
+    },
+    "9095953": {
+        "error": "SPID 9095953 not found in shared memory."
+    },
+    "10380530": {
+        "error": "SPID 10380530 not found in shared memory."
+    },
+    "10576888": {
+        "error": "SPID 10576888 not found in shared memory."
+    },
+    "11185864": {
+        "error": "SPID 11185864 not found in shared memory."
+    },
+    "10637675": {
+        "error": "SPID 10637675 not found in shared memory."
+    },
+    "10616405": {
+        "error": "SPID 10616405 not found in shared memory."
+    },
+    "11176038": {
+        "error": "SPID 11176038 not found in shared memory."
+    },
+    "9075472": {
+        "error": "SPID 9075472 not found in shared memory."
+    },
+    "10616663": {
+        "error": "SPID 10616663 not found in shared memory."
+    },
+    "9120743": {
+        "error": "SPID 9120743 not found in shared memory."
+    },
+    "10577913": {
+        "error": "SPID 10577913 not found in shared memory."
+    },
+    "10076305": {
+        "error": "SPID 10076305 not found in shared memory."
+    },
+    "10010831": {
+        "error": "SPID 10010831 not found in shared memory."
+    },
+    "10415576": {
+        "error": "SPID 10415576 not found in shared memory."
+    },
+    "11165498": {
+        "error": "SPID 11165498 not found in shared memory."
+    },
+    "9900733": {
+        "error": "SPID 9900733 not found in shared memory."
+    },
+    "9978342": {
+        "error": "SPID 9978342 not found in shared memory."
+    },
+    "9183821": {
+        "error": "SPID 9183821 not found in shared memory."
+    },
+    "10435804": {
+        "error": "SPID 10435804 not found in shared memory."
+    },
+    "11180651": {
+        "error": "SPID 11180651 not found in shared memory."
+    },
+    "9898789": {
+        "error": "SPID 9898789 not found in shared memory."
+    },
+    "9177920": {
+        "error": "SPID 9177920 not found in shared memory."
+    },
+    "9788652": {
+        "error": "SPID 9788652 not found in shared memory."
+    },
+    "10002882": {
+        "error": "SPID 10002882 not found in shared memory."
+    },
+    "10205403": {
+        "error": "SPID 10205403 not found in shared memory."
+    },
+    "9110814": {
+        "error": "SPID 9110814 not found in shared memory."
+    },
+    "8999360": {
+        "error": "SPID 8999360 not found in shared memory."
+    },
+    "10076821": {
+        "error": "SPID 10076821 not found in shared memory."
+    },
+    "11121680": {
+        "error": "SPID 11121680 not found in shared memory."
+    },
+    "9136946": {
+        "error": "SPID 9136946 not found in shared memory."
+    },
+    "10377437": {
+        "error": "SPID 10377437 not found in shared memory."
+    },
+    "10079142": {
+        "error": "SPID 10079142 not found in shared memory."
+    },
+    "11191247": {
+        "error": "SPID 11191247 not found in shared memory."
+    },
+    "11168319": {
+        "error": "SPID 11168319 not found in shared memory."
+    },
+    "9142840": {
+        "error": "SPID 9142840 not found in shared memory."
+    },
+    "10406148": {
+        "error": "SPID 10406148 not found in shared memory."
+    },
+    "9873625": {
+        "error": "SPID 9873625 not found in shared memory."
+    },
+    "9791218": {
+        "error": "SPID 9791218 not found in shared memory."
+    },
+    "18895155": {
+        "error": "SPID 18895155 not found in shared memory."
+    },
+    "11172444": {
+        "error": "SPID 11172444 not found in shared memory."
+    },
+    "10520624": {
+        "error": "SPID 10520624 not found in shared memory."
+    },
+    "9118691": {
+        "error": "SPID 9118691 not found in shared memory."
+    },
+    "11152687": {
+        "error": "SPID 11152687 not found in shared memory."
+    },
+    "10078117": {
+        "error": "SPID 10078117 not found in shared memory."
+    },
+    "9143865": {
+        "error": "SPID 9143865 not found in shared memory."
+    },
+    "9040279": {
+        "error": "SPID 9040279 not found in shared memory."
+    },
+    "10377694": {
+        "error": "SPID 10377694 not found in shared memory."
+    },
+    "11108103": {
+        "error": "SPID 11108103 not found in shared memory."
+    },
+    "9892995": {
+        "error": "SPID 9892995 not found in shared memory."
+    },
+    "11131417": {
+        "error": "SPID 11131417 not found in shared memory."
+    },
+    "11157812": {
+        "error": "SPID 11157812 not found in shared memory."
+    },
+    "11185350": {
+        "error": "SPID 11185350 not found in shared memory."
+    },
+    "10896387": {
+        "error": "SPID 10896387 not found in shared memory."
+    },
+    "9238343": {
+        "error": "SPID 9238343 not found in shared memory."
+    },
+    "10082748": {
+        "error": "SPID 10082748 not found in shared memory."
+    },
+    "10616923": {
+        "error": "SPID 10616923 not found in shared memory."
+    },
+    "9958600": {
+        "error": "SPID 9958600 not found in shared memory."
+    },
+    "11176295": {
+        "error": "SPID 11176295 not found in shared memory."
+    },
+    "9879784": {
+        "error": "SPID 9879784 not found in shared memory."
+    },
+    "11178089": {
+        "error": "SPID 11178089 not found in shared memory."
+    },
+    "10654846": {
+        "error": "SPID 10654846 not found in shared memory."
+    },
+    "9631598": {
+        "error": "SPID 9631598 not found in shared memory."
+    },
+    "10052969": {
+        "error": "SPID 10052969 not found in shared memory."
+    },
+    "11197149": {
+        "error": "SPID 11197149 not found in shared memory."
+    },
+    "10668681": {
+        "error": "SPID 10668681 not found in shared memory."
+    },
+    "10533695": {
+        "error": "SPID 10533695 not found in shared memory."
+    },
+    "9044397": {
+        "error": "SPID 9044397 not found in shared memory."
     },
     "10666888": {
-        "LTP": 0,
-        "instrument_name": "TITAN25FEB25MARFUT",
-        "related_spids": [
-            {
-                "spid": 41498,
-                "instrument_name": "TITAN25FEBFUT",
-                "bid_price": 3246.2
-            },
-            {
-                "spid": 43400,
-                "instrument_name": "TITAN25MARFUT",
-                "ask_price": 3264.7
-            }
-        ],
-        "spread": 18.5,
-        "profit": 3237.5,
-        "expiry_dates": [
-            "2025-02-28",
-            "2025-03-27"
-        ]
+        "error": "SPID 10666888 not found in shared memory."
+    },
+    "9015667": {
+        "error": "SPID 9015667 not found in shared memory."
+    },
+    "10380787": {
+        "error": "SPID 10380787 not found in shared memory."
+    },
+    "9831097": {
+        "error": "SPID 9831097 not found in shared memory."
+    },
+    "10070643": {
+        "error": "SPID 10070643 not found in shared memory."
+    },
+    "9099230": {
+        "error": "SPID 9099230 not found in shared memory."
+    },
+    "9091804": {
+        "error": "SPID 9091804 not found in shared memory."
+    },
+    "8999916": {
+        "error": "SPID 8999916 not found in shared memory."
+    },
+    "9079499": {
+        "error": "SPID 9079499 not found in shared memory."
+    },
+    "10083264": {
+        "error": "SPID 10083264 not found in shared memory."
+    },
+    "10418906": {
+        "error": "SPID 10418906 not found in shared memory."
+    },
+    "11121423": {
+        "error": "SPID 11121423 not found in shared memory."
+    },
+    "9177663": {
+        "error": "SPID 9177663 not found in shared memory."
+    },
+    "11146024": {
+        "error": "SPID 11146024 not found in shared memory."
+    },
+    "9034125": {
+        "error": "SPID 9034125 not found in shared memory."
+    },
+    "11165241": {
+        "error": "SPID 11165241 not found in shared memory."
+    },
+    "10145659": {
+        "error": "SPID 10145659 not found in shared memory."
+    },
+    "10618717": {
+        "error": "SPID 10618717 not found in shared memory."
+    },
+    "9111327": {
+        "error": "SPID 9111327 not found in shared memory."
+    },
+    "9125821": {
+        "error": "SPID 9125821 not found in shared memory."
+    },
+    "10717179": {
+        "error": "SPID 10717179 not found in shared memory."
+    },
+    "9015470": {
+        "error": "SPID 9015470 not found in shared memory."
+    },
+    "10613070": {
+        "error": "SPID 10613070 not found in shared memory."
+    },
+    "9567075": {
+        "error": "SPID 9567075 not found in shared memory."
+    },
+    "10077848": {
+        "error": "SPID 10077848 not found in shared memory."
+    },
+    "11112203": {
+        "error": "SPID 11112203 not found in shared memory."
+    },
+    "9138228": {
+        "error": "SPID 9138228 not found in shared memory."
+    },
+    "11145510": {
+        "error": "SPID 11145510 not found in shared memory."
+    },
+    "9121000": {
+        "error": "SPID 9121000 not found in shared memory."
+    },
+    "11111946": {
+        "error": "SPID 11111946 not found in shared memory."
+    },
+    "9994944": {
+        "error": "SPID 9994944 not found in shared memory."
+    },
+    "10075505": {
+        "error": "SPID 10075505 not found in shared memory."
+    },
+    "9638605": {
+        "error": "SPID 9638605 not found in shared memory."
+    },
+    "9176652": {
+        "error": "SPID 9176652 not found in shared memory."
+    },
+    "9167418": {
+        "error": "SPID 9167418 not found in shared memory."
+    },
+    "9092317": {
+        "error": "SPID 9092317 not found in shared memory."
+    },
+    "11172958": {
+        "error": "SPID 11172958 not found in shared memory."
+    },
+    "10670734": {
+        "error": "SPID 10670734 not found in shared memory."
+    },
+    "11176552": {
+        "error": "SPID 11176552 not found in shared memory."
+    },
+    "11181204": {
+        "error": "SPID 11181204 not found in shared memory."
+    },
+    "10679459": {
+        "error": "SPID 10679459 not found in shared memory."
+    },
+    "9088475": {
+        "error": "SPID 9088475 not found in shared memory."
+    },
+    "11149610": {
+        "error": "SPID 11149610 not found in shared memory."
+    },
+    "9111585": {
+        "error": "SPID 9111585 not found in shared memory."
+    },
+    "9913740": {
+        "error": "SPID 9913740 not found in shared memory."
+    },
+    "9885717": {
+        "error": "SPID 9885717 not found in shared memory."
+    },
+    "11193815": {
+        "error": "SPID 11193815 not found in shared memory."
+    },
+    "10056847": {
+        "error": "SPID 10056847 not found in shared memory."
+    },
+    "10035273": {
+        "error": "SPID 10035273 not found in shared memory."
+    },
+    "9911528": {
+        "error": "SPID 9911528 not found in shared memory."
+    },
+    "9020857": {
+        "error": "SPID 9020857 not found in shared memory."
+    },
+    "10150016": {
+        "error": "SPID 10150016 not found in shared memory."
+    },
+    "9028400": {
+        "error": "SPID 9028400 not found in shared memory."
+    },
+    "10652284": {
+        "error": "SPID 10652284 not found in shared memory."
+    },
+    "9071008": {
+        "error": "SPID 9071008 not found in shared memory."
+    },
+    "18907491": {
+        "error": "SPID 18907491 not found in shared memory."
+    },
+    "9032067": {
+        "error": "SPID 9032067 not found in shared memory."
+    },
+    "11170906": {
+        "error": "SPID 11170906 not found in shared memory."
+    },
+    "9081093": {
+        "error": "SPID 9081093 not found in shared memory."
+    },
+    "11149867": {
+        "error": "SPID 11149867 not found in shared memory."
+    },
+    "10073449": {
+        "error": "SPID 10073449 not found in shared memory."
+    },
+    "9031809": {
+        "error": "SPID 9031809 not found in shared memory."
+    },
+    "11173215": {
+        "error": "SPID 11173215 not found in shared memory."
+    },
+    "9638888": {
+        "error": "SPID 9638888 not found in shared memory."
+    },
+    "9940409": {
+        "error": "SPID 9940409 not found in shared memory."
+    },
+    "9103639": {
+        "error": "SPID 9103639 not found in shared memory."
+    },
+    "11188426": {
+        "error": "SPID 11188426 not found in shared memory."
+    },
+    "10054026": {
+        "error": "SPID 10054026 not found in shared memory."
+    },
+    "15147693": {
+        "error": "SPID 15147693 not found in shared memory."
+    },
+    "9992441": {
+        "error": "SPID 9992441 not found in shared memory."
+    },
+    "9027770": {
+        "error": "SPID 9027770 not found in shared memory."
+    },
+    "9236292": {
+        "error": "SPID 9236292 not found in shared memory."
+    },
+    "11178346": {
+        "error": "SPID 11178346 not found in shared memory."
+    },
+    "10503693": {
+        "error": "SPID 10503693 not found in shared memory."
+    },
+    "10621541": {
+        "error": "SPID 10621541 not found in shared memory."
+    },
+    "11161399": {
+        "error": "SPID 11161399 not found in shared memory."
+    },
+    "9138486": {
+        "error": "SPID 9138486 not found in shared memory."
+    },
+    "9111842": {
+        "error": "SPID 9111842 not found in shared memory."
+    },
+    "10655103": {
+        "error": "SPID 10655103 not found in shared memory."
+    },
+    "9791987": {
+        "error": "SPID 9791987 not found in shared memory."
+    },
+    "9952957": {
+        "error": "SPID 9952957 not found in shared memory."
+    },
+    "11150381": {
+        "error": "SPID 11150381 not found in shared memory."
+    },
+    "10637937": {
+        "error": "SPID 10637937 not found in shared memory."
+    },
+    "9242199": {
+        "error": "SPID 9242199 not found in shared memory."
+    },
+    "11112460": {
+        "error": "SPID 11112460 not found in shared memory."
+    },
+    "10508846": {
+        "error": "SPID 10508846 not found in shared memory."
+    },
+    "9117410": {
+        "error": "SPID 9117410 not found in shared memory."
+    },
+    "9121513": {
+        "error": "SPID 9121513 not found in shared memory."
+    },
+    "10670221": {
+        "error": "SPID 10670221 not found in shared memory."
+    },
+    "11132443": {
+        "error": "SPID 11132443 not found in shared memory."
+    },
+    "9633384": {
+        "error": "SPID 9633384 not found in shared memory."
+    },
+    "9293651": {
+        "error": "SPID 9293651 not found in shared memory."
+    },
+    "9084376": {
+        "error": "SPID 9084376 not found in shared memory."
+    },
+    "10618974": {
+        "error": "SPID 10618974 not found in shared memory."
+    },
+    "11117752": {
+        "error": "SPID 11117752 not found in shared memory."
+    },
+    "9074863": {
+        "error": "SPID 9074863 not found in shared memory."
+    },
+    "9920177": {
+        "error": "SPID 9920177 not found in shared memory."
+    },
+    "10693819": {
+        "error": "SPID 10693819 not found in shared memory."
+    },
+    "10024225": {
+        "error": "SPID 10024225 not found in shared memory."
+    },
+    "10521393": {
+        "error": "SPID 10521393 not found in shared memory."
+    },
+    "10533952": {
+        "error": "SPID 10533952 not found in shared memory."
+    },
+    "10404341": {
+        "error": "SPID 10404341 not found in shared memory."
+    },
+    "11180908": {
+        "error": "SPID 11180908 not found in shared memory."
+    },
+    "9017780": {
+        "error": "SPID 9017780 not found in shared memory."
+    },
+    "9103126": {
+        "error": "SPID 9103126 not found in shared memory."
+    },
+    "9065375": {
+        "error": "SPID 9065375 not found in shared memory."
+    },
+    "9137203": {
+        "error": "SPID 9137203 not found in shared memory."
+    },
+    "9029425": {
+        "error": "SPID 9029425 not found in shared memory."
+    },
+    "9014641": {
+        "error": "SPID 9014641 not found in shared memory."
+    },
+    "11181722": {
+        "error": "SPID 11181722 not found in shared memory."
+    },
+    "11146281": {
+        "error": "SPID 11146281 not found in shared memory."
+    },
+    "10612034": {
+        "error": "SPID 10612034 not found in shared memory."
+    },
+    "11110665": {
+        "error": "SPID 11110665 not found in shared memory."
+    },
+    "9890688": {
+        "error": "SPID 9890688 not found in shared memory."
+    },
+    "10147966": {
+        "error": "SPID 10147966 not found in shared memory."
+    },
+    "10074218": {
+        "error": "SPID 10074218 not found in shared memory."
+    },
+    "8999633": {
+        "error": "SPID 8999633 not found in shared memory."
+    },
+    "9952698": {
+        "error": "SPID 9952698 not found in shared memory."
+    },
+    "9112136": {
+        "error": "SPID 9112136 not found in shared memory."
+    },
+    "10288279": {
+        "error": "SPID 10288279 not found in shared memory."
+    },
+    "9179201": {
+        "error": "SPID 9179201 not found in shared memory."
+    },
+    "9210194": {
+        "error": "SPID 9210194 not found in shared memory."
+    },
+    "10613327": {
+        "error": "SPID 10613327 not found in shared memory."
+    },
+    "10083531": {
+        "error": "SPID 10083531 not found in shared memory."
+    },
+    "9014708": {
+        "error": "SPID 9014708 not found in shared memory."
+    },
+    "10075248": {
+        "error": "SPID 10075248 not found in shared memory."
+    },
+    "9624685": {
+        "error": "SPID 9624685 not found in shared memory."
+    },
+    "10657924": {
+        "error": "SPID 10657924 not found in shared memory."
+    },
+    "10147709": {
+        "error": "SPID 10147709 not found in shared memory."
+    },
+    "9169723": {
+        "error": "SPID 9169723 not found in shared memory."
+    },
+    "11161656": {
+        "error": "SPID 11161656 not found in shared memory."
+    },
+    "11183004": {
+        "error": "SPID 11183004 not found in shared memory."
+    },
+    "10673295": {
+        "error": "SPID 10673295 not found in shared memory."
+    },
+    "11181465": {
+        "error": "SPID 11181465 not found in shared memory."
+    },
+    "10728194": {
+        "error": "SPID 10728194 not found in shared memory."
+    },
+    "11157552": {
+        "error": "SPID 11157552 not found in shared memory."
+    },
+    "10633066": {
+        "error": "SPID 10633066 not found in shared memory."
+    },
+    "11171419": {
+        "error": "SPID 11171419 not found in shared memory."
+    },
+    "9142583": {
+        "error": "SPID 9142583 not found in shared memory."
+    },
+    "9624428": {
+        "error": "SPID 9624428 not found in shared memory."
+    },
+    "10694086": {
+        "error": "SPID 10694086 not found in shared memory."
+    },
+    "8998843": {
+        "error": "SPID 8998843 not found in shared memory."
+    },
+    "9034639": {
+        "error": "SPID 9034639 not found in shared memory."
+    },
+    "10436852": {
+        "error": "SPID 10436852 not found in shared memory."
+    },
+    "8998329": {
+        "error": "SPID 8998329 not found in shared memory."
+    },
+    "11132700": {
+        "error": "SPID 11132700 not found in shared memory."
+    },
+    "9048910": {
+        "error": "SPID 9048910 not found in shared memory."
+    },
+    "9120486": {
+        "error": "SPID 9120486 not found in shared memory."
+    },
+    "9894436": {
+        "error": "SPID 9894436 not found in shared memory."
+    },
+    "10069140": {
+        "error": "SPID 10069140 not found in shared memory."
+    },
+    "9911257": {
+        "error": "SPID 9911257 not found in shared memory."
+    },
+    "10082228": {
+        "error": "SPID 10082228 not found in shared memory."
+    },
+    "10006473": {
+        "error": "SPID 10006473 not found in shared memory."
+    },
+    "9136430": {
+        "error": "SPID 9136430 not found in shared memory."
+    },
+    "10657664": {
+        "error": "SPID 10657664 not found in shared memory."
+    },
+    "11152430": {
+        "error": "SPID 11152430 not found in shared memory."
+    },
+    "9612388": {
+        "error": "SPID 9612388 not found in shared memory."
+    },
+    "9074605": {
+        "error": "SPID 9074605 not found in shared memory."
+    },
+    "10404610": {
+        "error": "SPID 10404610 not found in shared memory."
+    },
+    "9017460": {
+        "error": "SPID 9017460 not found in shared memory."
+    },
+    "11183261": {
+        "error": "SPID 11183261 not found in shared memory."
+    },
+    "10037608": {
+        "error": "SPID 10037608 not found in shared memory."
+    },
+    "9112393": {
+        "error": "SPID 9112393 not found in shared memory."
+    },
+    "9025915": {
+        "error": "SPID 9025915 not found in shared memory."
+    },
+    "9075146": {
+        "error": "SPID 9075146 not found in shared memory."
+    },
+    "9099487": {
+        "error": "SPID 9099487 not found in shared memory."
+    },
+    "10151044": {
+        "error": "SPID 10151044 not found in shared memory."
+    },
+    "11140389": {
+        "error": "SPID 11140389 not found in shared memory."
+    },
+    "9899054": {
+        "error": "SPID 9899054 not found in shared memory."
+    },
+    "11185607": {
+        "error": "SPID 11185607 not found in shared memory."
+    },
+    "11175012": {
+        "error": "SPID 11175012 not found in shared memory."
+    },
+    "9120229": {
+        "error": "SPID 9120229 not found in shared memory."
+    },
+    "9838550": {
+        "error": "SPID 9838550 not found in shared memory."
+    },
+    "11173728": {
+        "error": "SPID 11173728 not found in shared memory."
+    },
+    "9788909": {
+        "error": "SPID 9788909 not found in shared memory."
+    },
+    "10727425": {
+        "error": "SPID 10727425 not found in shared memory."
+    },
+    "11126806": {
+        "error": "SPID 11126806 not found in shared memory."
+    },
+    "10507297": {
+        "error": "SPID 10507297 not found in shared memory."
+    },
+    "10075762": {
+        "error": "SPID 10075762 not found in shared memory."
+    },
+    "9015223": {
+        "error": "SPID 9015223 not found in shared memory."
+    },
+    "9976545": {
+        "error": "SPID 9976545 not found in shared memory."
+    },
+    "11135777": {
+        "error": "SPID 11135777 not found in shared memory."
+    },
+    "10206172": {
+        "error": "SPID 10206172 not found in shared memory."
+    },
+    "11193558": {
+        "error": "SPID 11193558 not found in shared memory."
+    },
+    "9253721": {
+        "error": "SPID 9253721 not found in shared memory."
+    },
+    "10076048": {
+        "error": "SPID 10076048 not found in shared memory."
+    },
+    "10069874": {
+        "error": "SPID 10069874 not found in shared memory."
+    },
+    "11120654": {
+        "error": "SPID 11120654 not found in shared memory."
+    },
+    "9086682": {
+        "error": "SPID 9086682 not found in shared memory."
+    },
+    "10295211": {
+        "error": "SPID 10295211 not found in shared memory."
+    },
+    "10620256": {
+        "error": "SPID 10620256 not found in shared memory."
+    },
+    "11199970": {
+        "error": "SPID 11199970 not found in shared memory."
+    },
+    "11165755": {
+        "error": "SPID 11165755 not found in shared memory."
+    },
+    "10015774": {
+        "error": "SPID 10015774 not found in shared memory."
+    },
+    "9285468": {
+        "error": "SPID 9285468 not found in shared memory."
+    },
+    "10076564": {
+        "error": "SPID 10076564 not found in shared memory."
+    },
+    "10414037": {
+        "error": "SPID 10414037 not found in shared memory."
+    },
+    "11126293": {
+        "error": "SPID 11126293 not found in shared memory."
+    },
+    "9030194": {
+        "error": "SPID 9030194 not found in shared memory."
+    },
+    "9879514": {
+        "error": "SPID 9879514 not found in shared memory."
+    },
+    "10083007": {
+        "error": "SPID 10083007 not found in shared memory."
+    },
+    "9084119": {
+        "error": "SPID 9084119 not found in shared memory."
+    },
+    "10029605": {
+        "error": "SPID 10029605 not found in shared memory."
+    },
+    "11139618": {
+        "error": "SPID 11139618 not found in shared memory."
+    },
+    "9237574": {
+        "error": "SPID 9237574 not found in shared memory."
+    },
+    "9916592": {
+        "error": "SPID 9916592 not found in shared memory."
+    },
+    "9940146": {
+        "error": "SPID 9940146 not found in shared memory."
+    },
+    "11190990": {
+        "error": "SPID 11190990 not found in shared memory."
+    },
+    "10509615": {
+        "error": "SPID 10509615 not found in shared memory."
+    },
+    "10289051": {
+        "error": "SPID 10289051 not found in shared memory."
+    },
+    "10082491": {
+        "error": "SPID 10082491 not found in shared memory."
+    },
+    "9347421": {
+        "error": "SPID 9347421 not found in shared memory."
+    },
+    "18907234": {
+        "error": "SPID 18907234 not found in shared memory."
+    },
+    "10617436": {
+        "error": "SPID 10617436 not found in shared memory."
+    },
+    "10673561": {
+        "error": "SPID 10673561 not found in shared memory."
+    },
+    "9077009": {
+        "error": "SPID 9077009 not found in shared memory."
+    },
+    "9238600": {
+        "error": "SPID 9238600 not found in shared memory."
+    },
+    "10413780": {
+        "error": "SPID 10413780 not found in shared memory."
+    },
+    "9080836": {
+        "error": "SPID 9080836 not found in shared memory."
+    },
+    "11181979": {
+        "error": "SPID 11181979 not found in shared memory."
+    },
+    "10679716": {
+        "error": "SPID 10679716 not found in shared memory."
+    },
+    "10689722": {
+        "error": "SPID 10689722 not found in shared memory."
+    },
+    "9037200": {
+        "error": "SPID 9037200 not found in shared memory."
+    },
+    "9179458": {
+        "error": "SPID 9179458 not found in shared memory."
+    },
+    "9833169": {
+        "error": "SPID 9833169 not found in shared memory."
+    },
+    "10415062": {
+        "error": "SPID 10415062 not found in shared memory."
+    },
+    "9135647": {
+        "error": "SPID 9135647 not found in shared memory."
+    },
+    "11172701": {
+        "error": "SPID 11172701 not found in shared memory."
+    },
+    "11125779": {
+        "error": "SPID 11125779 not found in shared memory."
+    },
+    "10015196": {
+        "error": "SPID 10015196 not found in shared memory."
+    },
+    "10002625": {
+        "error": "SPID 10002625 not found in shared memory."
+    },
+    "11188683": {
+        "error": "SPID 11188683 not found in shared memory."
+    },
+    "10148735": {
+        "error": "SPID 10148735 not found in shared memory."
+    },
+    "10077078": {
+        "error": "SPID 10077078 not found in shared memory."
+    },
+    "10411701": {
+        "error": "SPID 10411701 not found in shared memory."
+    },
+    "11126036": {
+        "error": "SPID 11126036 not found in shared memory."
+    },
+    "10404867": {
+        "error": "SPID 10404867 not found in shared memory."
+    },
+    "9391211": {
+        "error": "SPID 9391211 not found in shared memory."
+    },
+    "10014938": {
+        "error": "SPID 10014938 not found in shared memory."
+    },
+    "10295476": {
+        "error": "SPID 10295476 not found in shared memory."
+    },
+    "11121937": {
+        "error": "SPID 11121937 not found in shared memory."
+    },
+    "10896646": {
+        "error": "SPID 10896646 not found in shared memory."
+    },
+    "18923960": {
+        "error": "SPID 18923960 not found in shared memory."
+    },
+    "9148846": {
+        "error": "SPID 9148846 not found in shared memory."
+    },
+    "10003140": {
+        "error": "SPID 10003140 not found in shared memory."
+    },
+    "10057104": {
+        "error": "SPID 10057104 not found in shared memory."
+    },
+    "9230147": {
+        "error": "SPID 9230147 not found in shared memory."
+    },
+    "10725628": {
+        "error": "SPID 10725628 not found in shared memory."
+    },
+    "10145402": {
+        "error": "SPID 10145402 not found in shared memory."
+    },
+    "11150124": {
+        "error": "SPID 11150124 not found in shared memory."
+    },
+    "10003400": {
+        "error": "SPID 10003400 not found in shared memory."
+    },
+    "9065118": {
+        "error": "SPID 9065118 not found in shared memory."
+    },
+    "10668940": {
+        "error": "SPID 10668940 not found in shared memory."
+    },
+    "10074991": {
+        "error": "SPID 10074991 not found in shared memory."
+    },
+    "11160885": {
+        "error": "SPID 11160885 not found in shared memory."
+    },
+    "10071334": {
+        "error": "SPID 10071334 not found in shared memory."
+    },
+    "10067857": {
+        "error": "SPID 10067857 not found in shared memory."
+    },
+    "11128599": {
+        "error": "SPID 11128599 not found in shared memory."
+    },
+    "9176638": {
+        "error": "SPID 9176638 not found in shared memory."
+    },
+    "10681261": {
+        "error": "SPID 10681261 not found in shared memory."
+    },
+    "9114337": {
+        "error": "SPID 9114337 not found in shared memory."
+    },
+    "9118948": {
+        "error": "SPID 9118948 not found in shared memory."
+    },
+    "9838293": {
+        "error": "SPID 9838293 not found in shared memory."
+    },
+    "11161142": {
+        "error": "SPID 11161142 not found in shared memory."
+    },
+    "9900990": {
+        "error": "SPID 9900990 not found in shared memory."
+    },
+    "9958342": {
+        "error": "SPID 9958342 not found in shared memory."
+    },
+    "9114080": {
+        "error": "SPID 9114080 not found in shared memory."
+    },
+    "11135517": {
+        "error": "SPID 11135517 not found in shared memory."
+    },
+    "10381044": {
+        "error": "SPID 10381044 not found in shared memory."
+    },
+    "10412215": {
+        "error": "SPID 10412215 not found in shared memory."
+    },
+    "9892497": {
+        "error": "SPID 9892497 not found in shared memory."
+    },
+    "11110408": {
+        "error": "SPID 11110408 not found in shared memory."
+    },
+    "8998586": {
+        "error": "SPID 8998586 not found in shared memory."
+    },
+    "10503950": {
+        "error": "SPID 10503950 not found in shared memory."
+    },
+    "11129624": {
+        "error": "SPID 11129624 not found in shared memory."
+    },
+    "18894898": {
+        "error": "SPID 18894898 not found in shared memory."
+    },
+    "9913481": {
+        "error": "SPID 9913481 not found in shared memory."
+    },
+    "10080167": {
+        "error": "SPID 10080167 not found in shared memory."
+    },
+    "10037350": {
+        "error": "SPID 10037350 not found in shared memory."
+    },
+    "9953474": {
+        "error": "SPID 9953474 not found in shared memory."
+    },
+    "9883625": {
+        "error": "SPID 9883625 not found in shared memory."
+    },
+    "10726909": {
+        "error": "SPID 10726909 not found in shared memory."
+    },
+    "10665605": {
+        "error": "SPID 10665605 not found in shared memory."
+    },
+    "10025250": {
+        "error": "SPID 10025250 not found in shared memory."
+    },
+    "9110557": {
+        "error": "SPID 9110557 not found in shared memory."
+    },
+    "9033100": {
+        "error": "SPID 9033100 not found in shared memory."
+    },
+    "10412755": {
+        "error": "SPID 10412755 not found in shared memory."
+    },
+    "11145767": {
+        "error": "SPID 11145767 not found in shared memory."
+    },
+    "9129404": {
+        "error": "SPID 9129404 not found in shared memory."
+    },
+    "9242456": {
+        "error": "SPID 9242456 not found in shared memory."
+    },
+    "10205132": {
+        "error": "SPID 10205132 not found in shared memory."
+    },
+    "11139875": {
+        "error": "SPID 11139875 not found in shared memory."
+    },
+    "9062195": {
+        "error": "SPID 9062195 not found in shared memory."
+    },
+    "10612811": {
+        "error": "SPID 10612811 not found in shared memory."
+    },
+    "11184289": {
+        "error": "SPID 11184289 not found in shared memory."
+    },
+    "10507554": {
+        "error": "SPID 10507554 not found in shared memory."
+    },
+    "18929593": {
+        "error": "SPID 18929593 not found in shared memory."
+    },
+    "10643835": {
+        "error": "SPID 10643835 not found in shared memory."
+    },
+    "11140132": {
+        "error": "SPID 11140132 not found in shared memory."
+    },
+    "9013748": {
+        "error": "SPID 9013748 not found in shared memory."
+    },
+    "10407173": {
+        "error": "SPID 10407173 not found in shared memory."
+    },
+    "10418393": {
+        "error": "SPID 10418393 not found in shared memory."
+    },
+    "11131674": {
+        "error": "SPID 11131674 not found in shared memory."
+    },
+    "10621800": {
+        "error": "SPID 10621800 not found in shared memory."
+    },
+    "10288538": {
+        "error": "SPID 10288538 not found in shared memory."
+    },
+    "9136687": {
+        "error": "SPID 9136687 not found in shared memory."
+    },
+    "10073184": {
+        "error": "SPID 10073184 not found in shared memory."
+    },
+    "9070745": {
+        "error": "SPID 9070745 not found in shared memory."
+    },
+    "9237317": {
+        "error": "SPID 9237317 not found in shared memory."
+    },
+    "10616144": {
+        "error": "SPID 10616144 not found in shared memory."
+    },
+    "9974239": {
+        "error": "SPID 9974239 not found in shared memory."
+    },
+    "11185093": {
+        "error": "SPID 11185093 not found in shared memory."
+    },
+    "10674586": {
+        "error": "SPID 10674586 not found in shared memory."
+    },
+    "18890015": {
+        "error": "SPID 18890015 not found in shared memory."
+    },
+    "10035013": {
+        "error": "SPID 10035013 not found in shared memory."
+    },
+    "9086169": {
+        "error": "SPID 9086169 not found in shared memory."
+    },
+    "9388638": {
+        "error": "SPID 9388638 not found in shared memory."
+    },
+    "10727168": {
+        "error": "SPID 10727168 not found in shared memory."
+    },
+    "10622057": {
+        "error": "SPID 10622057 not found in shared memory."
+    },
+    "11137201": {
+        "error": "SPID 11137201 not found in shared memory."
+    },
+    "10411958": {
+        "error": "SPID 10411958 not found in shared memory."
+    },
+    "10151574": {
+        "error": "SPID 10151574 not found in shared memory."
+    },
+    "11184032": {
+        "error": "SPID 11184032 not found in shared memory."
+    },
+    "9014449": {
+        "error": "SPID 9014449 not found in shared memory."
+    },
+    "9635441": {
+        "error": "SPID 9635441 not found in shared memory."
+    },
+    "9014966": {
+        "error": "SPID 9014966 not found in shared memory."
+    },
+    "9635780": {
+        "error": "SPID 9635780 not found in shared memory."
+    },
+    "9016504": {
+        "error": "SPID 9016504 not found in shared memory."
+    },
+    "11166014": {
+        "error": "SPID 11166014 not found in shared memory."
+    },
+    "9106460": {
+        "error": "SPID 9106460 not found in shared memory."
+    },
+    "10145916": {
+        "error": "SPID 10145916 not found in shared memory."
+    },
+    "18890272": {
+        "error": "SPID 18890272 not found in shared memory."
+    },
+    "10652541": {
+        "error": "SPID 10652541 not found in shared memory."
+    },
+    "10081712": {
+        "error": "SPID 10081712 not found in shared memory."
+    },
+    "11175781": {
+        "error": "SPID 11175781 not found in shared memory."
+    },
+    "11112717": {
+        "error": "SPID 11112717 not found in shared memory."
+    },
+    "11169088": {
+        "error": "SPID 11169088 not found in shared memory."
+    },
+    "10437621": {
+        "error": "SPID 10437621 not found in shared memory."
+    },
+    "10436573": {
+        "error": "SPID 10436573 not found in shared memory."
+    },
+    "9388895": {
+        "error": "SPID 9388895 not found in shared memory."
+    },
+    "10682542": {
+        "error": "SPID 10682542 not found in shared memory."
+    },
+    "10716410": {
+        "error": "SPID 10716410 not found in shared memory."
+    },
+    "9079827": {
+        "error": "SPID 9079827 not found in shared memory."
     }
 }

@@ -7,8 +7,7 @@ from multiprocessing import shared_memory
 
 app = Flask(__name__)
 
-# Define the spd dictionary
-#spd = {10931994: [42541, 41498], 10559186: [41094, 39122]}
+# Load the futures mapping data
 with open(r'data\futures_mapping2.json', 'r') as file:
     spd = json.load(file)
 datachanging_lock = threading.Lock()
@@ -22,11 +21,11 @@ EXPIRY_DATES = [
 with open(r"data\exchange_instruments2.json") as f:
     Instruments = json.load(f)
 
-with open('ExchangeInstrumentID2.json', 'r') as file:
+with open(r'contractnames.json', 'r') as file:
     instrumentname = json.load(file)
-with open('lotsize.json', 'r') as file:
+
+with open(r'lotsize.json', 'r') as file:
     lotsizejson = json.load(file)
-    
 
 def read_from_shm(exchange_id):
     """Reads market data from shared memory and returns JSON."""
@@ -51,10 +50,10 @@ def process_single_spread(spdid, instrumentname):
         return {"error": f"Invalid or missing LTP for SPID {spdid}"}
 
     result['LTP'] = ltp
-    if(ltp==0):
+    if ltp == 0:
         print(spread_data)
-    #print(instrumentname.get(str(spdid), "Unknown Instrument"),ltp)
-    result['instrument_name'] = instrumentname.get(str(spdid), "Unknown Instrument")  # Fixed key lookup
+
+    result['instrument_name'] = instrumentname.get(str(spdid), "Unknown Instrument")
 
     a1 = 0
     b1 = 0
@@ -63,26 +62,26 @@ def process_single_spread(spdid, instrumentname):
         result['related_spids'] = []
         related_spids = spd[spdid]
         for i, related_spid in enumerate(related_spids):
-            related_data = {'spid': related_spid, 'instrument_name': instrumentname.get(str(related_spid), "Unknown Instrument")}  # Fixed key lookup
+            related_data = {'spid': related_spid, 'instrument_name': instrumentname.get(str(related_spid), "Unknown Instrument")}
             related_spread_data = read_from_shm(related_spid)
             
             if related_spread_data:
                 bids = related_spread_data.get("Bids", [])
                 asks = related_spread_data.get("Asks", [])
-                
+
                 if ltp > 0:
                     if i == 0 and asks:
-                        a1 = asks[0].get("Price", 0)
+                        a1 = asks[0].get("Price", 0) or 0
                         related_data['ask_price'] = a1
                     elif i == 1 and bids:
-                        b1 = bids[0].get("Price", 0)
+                        b1 = bids[0].get("Price", 0) or 0
                         related_data['bid_price'] = b1
                 else:
                     if i == 0 and bids:
-                        b1 = bids[0].get("Price", 0)
+                        b1 = bids[0].get("Price", 0) or 0
                         related_data['bid_price'] = b1
                     elif i == 1 and asks:
-                        a1 = asks[0].get("Price", 0)
+                        a1 = asks[0].get("Price", 0) or 0
                         related_data['ask_price'] = a1
             else:
                 related_data['error'] = 'Data not found in shared memory.'
@@ -90,8 +89,14 @@ def process_single_spread(spdid, instrumentname):
 
             result['related_spids'].append(related_data)
 
-        actual_spread = abs(b1 - a1)
-        total_profit = actual_spread * lotsizejson.get(related_spid)  # Assuming contract size is 175
+        actual_spread = abs(b1 - a1) if b1 is not None and a1 is not None else 0
+        
+        # Ensure lot size is retrieved correctly
+        lot_size = lotsizejson.get(str(related_spid), 0)
+        if lot_size is None:
+            lot_size = 0  # Default to 0 if not found
+
+        total_profit = actual_spread * lot_size
 
         result['spread'] = actual_spread
         result['profit'] = total_profit
@@ -138,4 +143,4 @@ def index():
     return render_template('t4.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5001)

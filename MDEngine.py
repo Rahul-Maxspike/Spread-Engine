@@ -25,7 +25,7 @@ print("Login: ", response)
 soc = MDSocket_io(set_marketDataToken, set_muserID)
 
 # Read instrument list from JSON
-with open(r'data\exchange_instruments.json') as f:
+with open(r'data\subscriptions.json') as f:
     Instruments = json.load(f)
 
 

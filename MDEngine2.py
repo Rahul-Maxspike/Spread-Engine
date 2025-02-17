@@ -31,6 +31,9 @@ soc = MDSocket_io(set_marketDataToken, set_muserID)
 #   "10010573": [38946, 40397],
 #   "10150273": [39363, 73345]
 # }
+#with open(r'data\futures_mapping2.json') as f:
+#    instruments_mapping = json.load(f)
+
 with open(r'data\futures_mapping2.json') as f:
     instruments_mapping = json.load(f)
 
@@ -38,9 +41,17 @@ with open(r'data\futures_mapping2.json') as f:
 # Each value in the mapping corresponds to an exchangeInstrumentID.
 # We assign a default exchangeSegment value (e.g., 2) for each instrument.
 subscription_list = []
-MAX_INSTRUMENTS = 100
+MAX_INSTRUMENTS = 99
 
 for key, id_list in instruments_mapping.items():
+    
+    subscription_list.append({
+            "exchangeSegment": 2,           # Default exchange segment (adjust as needed)
+            "exchangeInstrumentID": key
+        })
+ 
+    if len(subscription_list) >= MAX_INSTRUMENTS:
+            break
     for inst_id in id_list:
         subscription_list.append({
             "exchangeSegment": 2,           # Default exchange segment (adjust as needed)
@@ -48,6 +59,7 @@ for key, id_list in instruments_mapping.items():
         })
         if len(subscription_list) >= MAX_INSTRUMENTS:
             break
+    
     if len(subscription_list) >= MAX_INSTRUMENTS:
         break
 

@@ -72,18 +72,37 @@
     .btn-primary:hover {
       background-color: #0056b3;
     }
+
+    .top-buttons {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 class="text-center my-4">Spread Engine</h1>
+    <div class="top-buttons">
     <button
       id="process-btn"
       class="btn btn-primary mb-3"
       onclick="triggerProcessing()"
+      style="display: none;"
     >
       Process Spread Data
     </button>
+    <form action="/mdlist" method="POST">
+      <button type="submit" class="btn btn-primary mb-3">Subscribe Instrument</button>
+    </form>
+
+          <button class="btn btn-success w-40 mb-2" id="start-btn">
+            Start Market Data
+          </button>
+          <button class="btn btn-danger w-40" id="stop-btn">
+            Stop Market Data
+          </button>
+        </div>
     <!-- Search Bar for Main Instrument Name -->
     <input
       type="text"
@@ -96,12 +115,12 @@
       <table class="table table-bordered table-striped table-dark text-center">
         <thead>
           <tr>
-            <th>Main SPID</th>
-            <th>Main Instrument Name</th>
-            <th>LTP</th>
-            <th>Spread</th>
+            <th>SpreadID</th>
+            <th>Spread Instrument</th>
+            <th>Spread LTP</th>
+            <th>Actual Spread</th>
             <th>Profit</th>
-            <th>Related SPIDs</th>
+            <th>Futures</th>
           </tr>
         </thead>
         <tbody id="data-table-body"></tbody>
@@ -132,6 +151,13 @@
 
         for (const spid in data) {
           const entry = data[spid];
+
+          // Skip entries that have an "error" key
+          if (entry.error) {
+            console.warn(`Skipping SPID ${spid} due to error: ${entry.error}`);
+            continue;
+          }
+
           const profitClass = entry.profit >= 0 ? "profit" : "loss";
 
           const row = document.createElement("tr");
@@ -149,9 +175,7 @@
                             (sp) => `
                       <div>
                         <strong>SPID:</strong> ${sp.spid}<br>
-                        <strong>Instrument:</strong> ${
-                              sp.instrument_name || "Unknown"
-                            }<br>
+                        <strong>Instrument:</strong> ${sp.instrument_name || "Unknown"}<br>
                         ${
                           sp.ask_price
                             ? `<strong>Ask:</strong> ${formatNumber(sp.ask_price)}`
@@ -220,7 +244,33 @@
       document.getElementById("process-btn").click();
     }, 300); // 30 seconds
 
-    setInterval(fetchData, 5); // 5 seconds
+    setInterval(fetchData, 50); // 5 seconds
+
+    
+  document.getElementById("start-btn").addEventListener("click", function() {
+    fetch("/start_fetching", { method: "POST" })
+      .then(response => response.json())
+      .then(data => {
+        showMessage(data.message);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        showMessage("An error occurred while starting market data.");
+      });
+  });
+
+  document.getElementById("stop-btn").addEventListener("click", function() {
+    fetch("/stop_fetching", { method: "POST" })
+      .then(response => response.json())
+      .then(data => {
+        showMessage(data.message);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        showMessage("An error occurred while stopping market data.");
+      });
+  });
+
   </script>
 </body>
 </html>
