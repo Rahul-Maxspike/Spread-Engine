@@ -1,0 +1,398 @@
+{
+    "10657924": {
+        "LTP": 0,
+        "instrument_name": "TECHM25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 41463,
+                "instrument_name": "TECHM25FEBFUT",
+                "bid_price": 1681.45
+            },
+            {
+                "spid": 43396,
+                "instrument_name": "TECHM25MARFUT",
+                "ask_price": 1688.25
+            }
+        ],
+        "spread": 6.7999999999999545,
+        "profit": 1189.999999999992,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "11184032": {
+        "LTP": 0,
+        "instrument_name": "TITAN25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 43400,
+                "instrument_name": "TITAN25MARFUT",
+                "bid_price": 3262.05
+            },
+            {
+                "spid": 73632,
+                "instrument_name": "TITAN25APRFUT",
+                "ask_price": 3286.85
+            }
+        ],
+        "spread": 24.799999999999727,
+        "profit": 4339.999999999953,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10576888": {
+        "LTP": 0,
+        "instrument_name": "ITC25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 41029,
+                "instrument_name": "ITC25MARFUT",
+                "bid_price": 416.05
+            },
+            {
+                "spid": 73464,
+                "instrument_name": "ITC25APRFUT",
+                "ask_price": 418.95
+            }
+        ],
+        "spread": 2.8999999999999773,
+        "profit": 507.499999999996,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9029425": {
+        "LTP": 0,
+        "instrument_name": "ADANIENT25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 35057,
+                "instrument_name": "ADANIENT25MARFUT",
+                "bid_price": 2206.9
+            },
+            {
+                "spid": 54833,
+                "instrument_name": "ADANIENT25APRFUT",
+                "ask_price": 2223.75
+            }
+        ],
+        "spread": 16.84999999999991,
+        "profit": 2948.749999999984,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "11193815": {
+        "LTP": 0,
+        "instrument_name": "WIPRO25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 43438,
+                "instrument_name": "WIPRO25MARFUT",
+                "bid_price": 311.7
+            },
+            {
+                "spid": 73687,
+                "instrument_name": "WIPRO25APRFUT",
+                "ask_price": 313.2
+            }
+        ],
+        "spread": 1.5,
+        "profit": 262.5,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10682542": {
+        "LTP": 0,
+        "instrument_name": "WIPRO25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 41559,
+                "instrument_name": "WIPRO25FEBFUT",
+                "bid_price": 310.45
+            },
+            {
+                "spid": 43438,
+                "instrument_name": "WIPRO25MARFUT",
+                "ask_price": 311.95
+            }
+        ],
+        "spread": 1.5,
+        "profit": 262.5,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "11183004": {
+        "LTP": 0,
+        "instrument_name": "TECHM25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 43396,
+                "instrument_name": "TECHM25MARFUT",
+                "bid_price": 1686.1
+            },
+            {
+                "spid": 73628,
+                "instrument_name": "TECHM25APRFUT",
+                "ask_price": 1694.5
+            }
+        ],
+        "spread": 8.400000000000091,
+        "profit": 1470.000000000016,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9003505": {
+        "LTP": 11.5,
+        "instrument_name": "ADANIENT25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 35033,
+                "instrument_name": "ADANIENT25FEBFUT",
+                "ask_price": 2195
+            },
+            {
+                "spid": 35057,
+                "instrument_name": "ADANIENT25MARFUT",
+                "bid_price": 2206.9
+            }
+        ],
+        "spread": 11.900000000000091,
+        "profit": 2082.500000000016,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10670734": {
+        "LTP": 43.2,
+        "instrument_name": "ULTRACEMCO25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 41513,
+                "instrument_name": "ULTRACEMCO25FEBFUT",
+                "ask_price": 11472.1
+            },
+            {
+                "spid": 43406,
+                "instrument_name": "ULTRACEMCO25MARFUT",
+                "bid_price": 11510.7
+            }
+        ],
+        "spread": 38.600000000000364,
+        "profit": 6755.000000000064,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10056847": {
+        "LTP": 4.65,
+        "instrument_name": "JSWSTEEL25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 39122,
+                "instrument_name": "JSWSTEEL25FEBFUT",
+                "ask_price": 975
+            },
+            {
+                "spid": 41615,
+                "instrument_name": "JSWSTEEL25MARFUT",
+                "bid_price": 979.2
+            }
+        ],
+        "spread": 4.2000000000000455,
+        "profit": 735.000000000008,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9084119": {
+        "LTP": 0,
+        "instrument_name": "ASIANPAINT25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 35215,
+                "instrument_name": "ASIANPAINT25MARFUT",
+                "bid_price": 2250.8
+            },
+            {
+                "spid": 69079,
+                "instrument_name": "ASIANPAINT25APRFUT",
+                "ask_price": 2265.85
+            }
+        ],
+        "spread": 15.049999999999727,
+        "profit": 2633.7499999999523,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10035013": {
+        "LTP": 0,
+        "instrument_name": "ITC25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 39039,
+                "instrument_name": "ITC25FEBFUT",
+                "bid_price": 413.9
+            },
+            {
+                "spid": 41029,
+                "instrument_name": "ITC25MARFUT",
+                "ask_price": 416.4
+            }
+        ],
+        "spread": 2.5,
+        "profit": 437.5,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9091804": {
+        "LTP": 0,
+        "instrument_name": "AXISBANK25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 35245,
+                "instrument_name": "AXISBANK25MARFUT",
+                "bid_price": 1013.55
+            },
+            {
+                "spid": 69084,
+                "instrument_name": "AXISBANK25APRFUT",
+                "ask_price": 1020.75
+            }
+        ],
+        "spread": 7.2000000000000455,
+        "profit": 1260.000000000008,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10726909": {
+        "LTP": 0,
+        "instrument_name": "JSWSTEEL25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 41615,
+                "instrument_name": "JSWSTEEL25MARFUT",
+                "bid_price": 979.2
+            },
+            {
+                "spid": 73469,
+                "instrument_name": "JSWSTEEL25APRFUT",
+                "ask_price": 984.8
+            }
+        ],
+        "spread": 5.599999999999909,
+        "profit": 979.9999999999841,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9074605": {
+        "LTP": 5.85,
+        "instrument_name": "AXISBANK25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 35310,
+                "instrument_name": "AXISBANK25FEBFUT",
+                "ask_price": 1008.4
+            },
+            {
+                "spid": 35245,
+                "instrument_name": "AXISBANK25MARFUT",
+                "bid_price": 1013.55
+            }
+        ],
+        "spread": 5.149999999999977,
+        "profit": 901.249999999996,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "11185607": {
+        "LTP": 0,
+        "instrument_name": "ULTRACEMCO25MAR25APRFUT",
+        "related_spids": [
+            {
+                "spid": 43406,
+                "instrument_name": "ULTRACEMCO25MARFUT",
+                "bid_price": 11510.7
+            },
+            {
+                "spid": 73671,
+                "instrument_name": "ULTRACEMCO25APRFUT",
+                "ask_price": 11543.9
+            }
+        ],
+        "spread": 33.19999999999891,
+        "profit": 5809.999999999809,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "9034639": {
+        "LTP": 9.55,
+        "instrument_name": "ASIANPAINT25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 35154,
+                "instrument_name": "ASIANPAINT25FEBFUT",
+                "ask_price": 2242
+            },
+            {
+                "spid": 35215,
+                "instrument_name": "ASIANPAINT25MARFUT",
+                "bid_price": 2250.8
+            }
+        ],
+        "spread": 8.800000000000182,
+        "profit": 1540.0000000000318,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    },
+    "10666888": {
+        "LTP": 0,
+        "instrument_name": "TITAN25FEB25MARFUT",
+        "related_spids": [
+            {
+                "spid": 41498,
+                "instrument_name": "TITAN25FEBFUT",
+                "bid_price": 3246.2
+            },
+            {
+                "spid": 43400,
+                "instrument_name": "TITAN25MARFUT",
+                "ask_price": 3264.7
+            }
+        ],
+        "spread": 18.5,
+        "profit": 3237.5,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
+    }
+}

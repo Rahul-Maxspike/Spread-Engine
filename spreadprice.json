@@ -1,0 +1,108 @@
+{
+  "10559186": {
+    "MessageCode": 1502,
+    "MessageVersion": 4,
+    "ApplicationType": 0,
+    "TokenID": 0,
+    "ExchangeSegment": 2,
+    "ExchangeInstrumentID": 10559186,
+    "ExchangeTimeStamp": 1422708279,
+    "Bids": [
+      {
+        "Size": 105975,
+        "Price": 4.85,
+        "TotalOrders": 5,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 2700,
+        "Price": 4.8,
+        "TotalOrders": 1,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 675,
+        "Price": 4.45,
+        "TotalOrders": 1,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 675,
+        "Price": 4.4,
+        "TotalOrders": 1,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 4050,
+        "Price": 3.75,
+        "TotalOrders": 2,
+        "BuyBackMarketMaker": 0
+      }
+    ],
+    "Asks": [
+      {
+        "Size": 8775,
+        "Price": 4.9,
+        "TotalOrders": 13,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 45900,
+        "Price": 4.95,
+        "TotalOrders": 18,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 51975,
+        "Price": 5,
+        "TotalOrders": 4,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 22275,
+        "Price": 5.15,
+        "TotalOrders": 32,
+        "BuyBackMarketMaker": 0
+      },
+      {
+        "Size": 97875,
+        "Price": 5.2,
+        "TotalOrders": 9,
+        "BuyBackMarketMaker": 0
+      }
+    ],
+    "Touchline": {
+      "BidInfo": {
+        "Size": 105975,
+        "Price": 4.85,
+        "TotalOrders": 5,
+        "BuyBackMarketMaker": 0
+      },
+      "AskInfo": {
+        "Size": 8775,
+        "Price": 4.9,
+        "TotalOrders": 13,
+        "BuyBackMarketMaker": 0
+      },
+      "LastTradedPrice": 4.9,
+      "LastTradedQunatity": 0,
+      "TotalBuyQuantity": 257175,
+      "TotalSellQuantity": 637200,
+      "TotalTradedQuantity": 2282850,
+      "AverageTradedPrice": 0,
+      "LastTradedTime": 1422708279,
+      "LastUpdateTime": 1422708279,
+      "PercentChange": 0,
+      "Open": 3.9,
+      "High": 5.15,
+      "Low": 2.75,
+      "Close": 4.9,
+      "TotalValueTraded": null,
+      "BuyBackTotalBuy": 0,
+      "BuyBackTotalSell": 0
+    },
+    "BookType": 1,
+    "XMarketType": 1,
+    "SequenceNumber": 1603871353433801
+  }
+}
