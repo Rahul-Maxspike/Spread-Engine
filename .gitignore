@@ -1,3 +1,4 @@
 /SpreadEngine/__pycache__
 /SpreadEngine/kiteconnect/__pycache__
 *.csv
+/venv
