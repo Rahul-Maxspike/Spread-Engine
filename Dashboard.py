@@ -6,6 +6,7 @@ import threading
 from datetime import datetime
 from multiprocessing import shared_memory
 from concurrent.futures import ThreadPoolExecutor
+from EntryManager import SpreadEntryManager
 
 from flask import Flask, jsonify, render_template, request
 
@@ -102,6 +103,8 @@ def read_from_shm(exchange_id):
     except Exception as e:
         
         return None
+entry_manager = SpreadEntryManager(csv_file='spread_positions.csv')
+
 
 def process_single_spread(spdid, instrumentname):
     """Process a single SPID's spread data from shared memory."""
@@ -152,7 +155,7 @@ def process_single_spread(spdid, instrumentname):
                         related_data['ask_price'] = a1
             else:
                 related_data['error'] = 'Data not found in shared memory.'
-                # If data is missing, you could skip or break. For now, skip.
+                # If data is missing, skip or break. Here, we skip.
                 return None
 
             result['related_spids'].append(related_data)
@@ -165,8 +168,46 @@ def process_single_spread(spdid, instrumentname):
         result['profit'] = total_profit
         result['expiry_dates'] = [date.strftime("%Y-%m-%d") for date in EXPIRY_DATES]
 
-    return result
+        # ===========================
+        #   Check for Entry Logic
+        # ===========================
+        if (ltp < actual_spread) and (ltp!=0):
+            # For demonstration, let’s define:
+            #   - 'buy' is the first leg (the first related_spid in spd[str(spdid)])
+            #   - 'sell' is the second leg (the second related_spid)
+            #   - both with the same lot_size as 'quantity'
+            #   - 'entry price' is the best ask for the buy leg and best bid for the sell leg
+            #
+            # This is just an example; adapt to your real logic.
 
+            # We assume there are exactly 2 related spids for the spread:
+            if len(related_spids) == 2:
+                buy_leg = related_spids[0]
+                sell_leg = related_spids[1]
+
+                # Let's find the relevant ask/bid for the buy/sell legs from the data we captured
+                buy_ask_price = result['related_spids'][0].get('ask_price', 0)  # from the first leg
+                sell_bid_price = result['related_spids'][1].get('bid_price', 0) # from the second leg
+
+                buy_instrument_id = buy_leg
+                sell_instrument_id = sell_leg
+                buy_instrument_name = instrumentname.get(str(buy_instrument_id), "Unknown")
+                sell_instrument_name = instrumentname.get(str(sell_instrument_id), "Unknown")
+
+                # Now use the SpreadEntryManager to create a new position if none exists
+                entry_manager.create_position(
+                    spread_id=spdid,
+                    buy_ticker_id=buy_instrument_id,
+                    buy_ticker_name=buy_instrument_name,
+                    buy_quantity=lot_size,
+                    buy_entry_price=buy_ask_price,
+                    sell_ticker_id=sell_instrument_id,
+                    sell_ticker_name=sell_instrument_name,
+                    sell_quantity=lot_size,
+                    sell_entry_price=sell_bid_price
+                )
+
+    return result
 def process_spread_data():
     """Process all spreads in `spd` and save the result to JSON."""
     result = {}
@@ -327,6 +368,86 @@ def get_spread_data():
         return jsonify(data)
     except FileNotFoundError:
         return jsonify({'error': 'Data file not found. Please process the data first.'})
+
+
+
+# ===live Postion ===   
+
+from flask import Flask, jsonify, request
+import csv
+import os
+
+# Initialize the SpreadEntryManager (reuse the same CSV file if you like)
+entry_manager = SpreadEntryManager(csv_file='spread_positions.csv')
+
+@app.route('/positions/live', methods=['GET'])
+def get_live_positions():
+    """
+    Reads all open positions from the CSV, fetches live prices from shared memory,
+    computes current profit/loss, and returns as JSON.
+    """
+    positions = entry_manager._load_positions()
+    live_positions = []
+
+    for pos in positions:
+        spread_id = pos['spread_id']
+        buy_ticker_id = pos['buy_ticker_id']
+        sell_ticker_id = pos['sell_ticker_id']
+        buy_entry_price = float(pos['buy_entry_price']) if pos['buy_entry_price'] else 0.0
+        sell_entry_price = float(pos['sell_entry_price']) if pos['sell_entry_price'] else 0.0
+        buy_qty = float(pos['buy_quantity']) if pos['buy_quantity'] else 0.0
+        sell_qty = float(pos['sell_quantity']) if pos['sell_quantity'] else 0.0
+
+        # Get the current price from shared memory
+        buy_data = read_from_shm(buy_ticker_id)
+        sell_data = read_from_shm(sell_ticker_id)
+
+        # Safely extract the LTP (LastTradedPrice)
+        buy_ltp = None
+        sell_ltp = None
+
+        if buy_data and "Touchline" in buy_data:
+            buy_ltp = buy_data["Touchline"].get("LastTradedPrice", None)
+        if sell_data and "Touchline" in sell_data:
+            sell_ltp = sell_data["Touchline"].get("LastTradedPrice", None)
+
+        if buy_ltp is None or sell_ltp is None:
+            # If we can't get LTP for either leg, skip or set 0.
+            continue
+
+        # Calculate live PnL
+        #    Buy PnL = (current buy price - buy_entry_price)* buy_qty
+        #    Sell PnL = (sell_entry_price - current sell price)* sell_qty
+        buy_pnl = (buy_ltp - buy_entry_price) * buy_qty
+        sell_pnl = (sell_entry_price - sell_ltp) * sell_qty
+        total_pnl = buy_pnl + sell_pnl
+
+        # Prepare data for JSON response
+        live_positions.append({
+            "spread_id": spread_id,
+            "buy_ticker_id": buy_ticker_id,
+            "sell_ticker_id": sell_ticker_id,
+            "buy_ltp": buy_ltp,
+            "sell_ltp": sell_ltp,
+            "buy_entry_price": buy_entry_price,
+            "sell_entry_price": sell_entry_price,
+            "buy_quantity": buy_qty,
+            "sell_quantity": sell_qty,
+            "live_buy_pnl": round(buy_pnl, 2),
+            "live_sell_pnl": round(sell_pnl, 2),
+            "live_total_pnl": round(total_pnl, 2)
+        })
+
+    return jsonify(live_positions)
+
+@app.route('/positions', methods=['GET'])
+def live_positions_view():
+    """
+    Returns the front-end page (HTML) that displays live positions.
+    """
+    return render_template('positions_live.html')
+
+
 
 # ========== Main ==========
 if __name__ == '__main__':

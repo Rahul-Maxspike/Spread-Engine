@@ -1,0 +1,118 @@
+<!-- templates/positions_live.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live Positions</title>
+  <style>
+    /* Optional basic styling for the table */
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin: 0 auto;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #f4f4f4;
+    }
+    #refresh-button {
+      margin: 10px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">Live Positions</h1>
+  <button id="refresh-button" onclick="loadLivePositions()">Refresh Now</button>
+  
+  <table id="positions-table">
+    <thead>
+      <tr>
+        <th>Spread ID</th>
+        <th>Buy Ticker</th>
+        <th>Sell Ticker</th>
+        <th>Buy LTP</th>
+        <th>Sell LTP</th>
+        <th>Buy Qty</th>
+        <th>Sell Qty</th>
+        <th>Buy Entry Price</th>
+        <th>Sell Entry Price</th>
+        <th>Live Buy PnL</th>
+        <th>Live Sell PnL</th>
+        <th>Total PnL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows will be dynamically inserted here by JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    async function loadLivePositions() {
+      try {
+        const response = await fetch('/positions/live');  // calls the Flask endpoint
+        const data = await response.json();
+        renderPositions(data);
+      } catch (err) {
+        console.error('Error fetching live positions:', err);
+      }
+    }
+
+    function renderPositions(positions) {
+      const tableBody = document.querySelector('#positions-table tbody');
+      tableBody.innerHTML = '';  // clear any existing rows
+
+      positions.forEach(pos => {
+        const row = document.createElement('tr');
+
+        // Create cells for each field we want to show
+        const spreadIdCell       = createCell(pos.spread_id);
+        const buyTickerCell      = createCell(pos.buy_ticker_id);
+        const sellTickerCell     = createCell(pos.sell_ticker_id);
+        const buyLtpCell         = createCell(pos.buy_ltp);
+        const sellLtpCell        = createCell(pos.sell_ltp);
+        const buyQtyCell         = createCell(pos.buy_quantity);
+        const sellQtyCell        = createCell(pos.sell_quantity);
+        const buyEntryPriceCell  = createCell(pos.buy_entry_price);
+        const sellEntryPriceCell = createCell(pos.sell_entry_price);
+        const liveBuyPnlCell     = createCell(pos.live_buy_pnl);
+        const liveSellPnlCell    = createCell(pos.live_sell_pnl);
+        const totalPnlCell       = createCell(pos.live_total_pnl);
+
+        // Append cells to the row
+        row.appendChild(spreadIdCell);
+        row.appendChild(buyTickerCell);
+        row.appendChild(sellTickerCell);
+        row.appendChild(buyLtpCell);
+        row.appendChild(sellLtpCell);
+        row.appendChild(buyQtyCell);
+        row.appendChild(sellQtyCell);
+        row.appendChild(buyEntryPriceCell);
+        row.appendChild(sellEntryPriceCell);
+        row.appendChild(liveBuyPnlCell);
+        row.appendChild(liveSellPnlCell);
+        row.appendChild(totalPnlCell);
+
+        // Finally, append the row to the table body
+        tableBody.appendChild(row);
+      });
+    }
+
+    function createCell(value) {
+      const cell = document.createElement('td');
+      cell.textContent = value !== undefined && value !== null ? value : '';
+      return cell;
+    }
+
+    // Optionally, auto-refresh every 5 seconds
+    setInterval(loadLivePositions, 50);
+
+    // Initial load on page load
+    window.onload = loadLivePositions;
+  </script>
+</body>
+</html>
