@@ -5,28 +5,62 @@
   <meta charset="UTF-8" />
   <title>Live Positions</title>
   <style>
-    /* Optional basic styling for the table */
+    /* Dark Theme */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    #refresh-button {
+      margin: 10px;
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #444;
+      cursor: pointer;
+    }
+    #refresh-button:hover {
+      background-color: #444;
+    }
+
     table {
       border-collapse: collapse;
       width: 90%;
       margin: 0 auto;
+      background-color: #2a2a2a;
     }
+
     th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
+      border: 1px solid #444;
+      padding: 10px;
       text-align: center;
     }
+
     th {
-      background: #f4f4f4;
+      background-color: #333;
+      color: #fff;
     }
-    #refresh-button {
-      margin: 10px;
-      padding: 5px 10px;
+
+    /* Specific styling for PnL cells can be handled in-line in JS, 
+       but here's an optional class structure if you want to use it:
+    .profit {
+      color: #4caf50;  // green
     }
+    .loss {
+      color: #f44336;  // red
+    }
+    */
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Live Positions</h1>
+  <h1>Live Positions</h1>
   <button id="refresh-button" onclick="loadLivePositions()">Refresh Now</button>
   
   <table id="positions-table">
@@ -49,12 +83,16 @@
     <tbody>
       <!-- Rows will be dynamically inserted here by JavaScript -->
     </tbody>
+    <tfoot>
+      <!-- Grand Total row will be added here dynamically -->
+    </tfoot>
   </table>
 
   <script>
     async function loadLivePositions() {
       try {
-        const response = await fetch('/positions/live');  // calls the Flask endpoint
+        // Fetch live positions from the Flask endpoint
+        const response = await fetch('/positions/live');
         const data = await response.json();
         renderPositions(data);
       } catch (err) {
@@ -64,26 +102,35 @@
 
     function renderPositions(positions) {
       const tableBody = document.querySelector('#positions-table tbody');
-      tableBody.innerHTML = '';  // clear any existing rows
+      const tableFoot = document.querySelector('#positions-table tfoot');
+      tableBody.innerHTML = '';  // Clear existing rows
+      tableFoot.innerHTML = '';  // Clear existing foot row(s)
+
+      let grandTotalPnL = 0; // to accumulate total of all totalPnLs
 
       positions.forEach(pos => {
         const row = document.createElement('tr');
 
-        // Create cells for each field we want to show
         const spreadIdCell       = createCell(pos.spread_id);
-        const buyTickerCell      = createCell(pos.buy_ticker_id);
-        const sellTickerCell     = createCell(pos.sell_ticker_id);
+        const buyTickerCell      = createCell(`${pos.buy_ticker_id} (${pos.buy_ticker_name})`);
+        const sellTickerCell     = createCell(`${pos.sell_ticker_id} (${pos.sell_ticker_name})`);
         const buyLtpCell         = createCell(pos.buy_ltp);
         const sellLtpCell        = createCell(pos.sell_ltp);
         const buyQtyCell         = createCell(pos.buy_quantity);
         const sellQtyCell        = createCell(pos.sell_quantity);
         const buyEntryPriceCell  = createCell(pos.buy_entry_price);
         const sellEntryPriceCell = createCell(pos.sell_entry_price);
-        const liveBuyPnlCell     = createCell(pos.live_buy_pnl);
-        const liveSellPnlCell    = createCell(pos.live_sell_pnl);
-        const totalPnlCell       = createCell(pos.live_total_pnl);
 
-        // Append cells to the row
+        // PnL cells with color coding
+        const liveBuyPnlCell     = createPnlCell(pos.live_buy_pnl);
+        const liveSellPnlCell    = createPnlCell(pos.live_sell_pnl);
+        const totalPnlCell       = createPnlCell(pos.live_total_pnl);
+
+        // Add to grand total
+        if (typeof pos.live_total_pnl === 'number') {
+          grandTotalPnL += pos.live_total_pnl;
+        }
+
         row.appendChild(spreadIdCell);
         row.appendChild(buyTickerCell);
         row.appendChild(sellTickerCell);
@@ -97,19 +144,49 @@
         row.appendChild(liveSellPnlCell);
         row.appendChild(totalPnlCell);
 
-        // Finally, append the row to the table body
         tableBody.appendChild(row);
       });
+
+      // Create a footer row for grand total
+      const footerRow = document.createElement('tr');
+      // We want 11 columns spanning the first 11 cells, and then the last cell for the total
+      const emptyCells = document.createElement('td');
+      emptyCells.colSpan = 11;
+      emptyCells.textContent = 'Grand Total PnL';
+      footerRow.appendChild(emptyCells);
+
+      const grandTotalCell = createPnlCell(grandTotalPnL);
+      footerRow.appendChild(grandTotalCell);
+
+      tableFoot.appendChild(footerRow);
     }
 
     function createCell(value) {
       const cell = document.createElement('td');
-      cell.textContent = value !== undefined && value !== null ? value : '';
+      cell.textContent = value != null ? value : '';
       return cell;
     }
 
-    // Optionally, auto-refresh every 5 seconds
-    setInterval(loadLivePositions, 50);
+    // Creates a table cell for PnL with color (green for profit, red for loss)
+    function createPnlCell(value) {
+      const cell = document.createElement('td');
+      if (value == null || isNaN(value)) {
+        cell.textContent = '';
+      } else {
+        cell.textContent = value.toFixed(2); // or leave it as is if not needed
+        if (value > 0) {
+          cell.style.color = '#4caf50'; // green
+        } else if (value < 0) {
+          cell.style.color = '#f44336'; // red
+        } else {
+          cell.style.color = '#fff'; // break-even
+        }
+      }
+      return cell;
+    }
+
+    // Auto-refresh every 5 seconds (5000 ms)
+    setInterval(loadLivePositions, 5);
 
     // Initial load on page load
     window.onload = loadLivePositions;

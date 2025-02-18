@@ -1,6 +1,19 @@
 {
     "9973982": {
-        "error": "SPID 9973982 not found in shared memory."
+        "LTP": 1.3,
+        "instrument_name": "HINDPETRO25FEB25MARFUT",
+        "buy_leg": 38805,
+        "sell_leg": 39902,
+        "buy_ask_price": 320.25,
+        "sell_bid_price": 321,
+        "buyInstrumentName": "HINDPETRO25FEBFUT",
+        "sellInstrumentName": "HINDPETRO25MARFUT",
+        "spread": 0.75,
+        "profit": 1518.75,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "10010573": {
         "error": "SPID 10010573 not found in shared memory."
@@ -12,7 +25,20 @@
         "error": "SPID 9003505 not found in shared memory."
     },
     "9135915": {
-        "error": "SPID 9135915 not found in shared memory."
+        "LTP": 0,
+        "instrument_name": "BRITANNIA25MAR25APRFUT",
+        "buy_leg": 73259,
+        "sell_leg": 35401,
+        "buy_ask_price": 4897.05,
+        "sell_bid_price": 4887.2,
+        "buyInstrumentName": "BRITANNIA25APRFUT",
+        "sellInstrumentName": "BRITANNIA25MARFUT",
+        "spread": 9.850000000000364,
+        "profit": 985.0000000000364,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "11169345": {
         "error": "SPID 11169345 not found in shared memory."
@@ -21,7 +47,20 @@
         "error": "SPID 10070565 not found in shared memory."
     },
     "9141067": {
-        "error": "SPID 9141067 not found in shared memory."
+        "LTP": -14.8,
+        "instrument_name": "BSE25FEB25MARFUT",
+        "buy_leg": 35403,
+        "sell_leg": 35569,
+        "buy_ask_price": 5150.85,
+        "sell_bid_price": 5160.05,
+        "buyInstrumentName": "BSE25MARFUT",
+        "sellInstrumentName": "BSE25FEBFUT",
+        "spread": 9.199999999999818,
+        "profit": 1149.9999999999773,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9955779": {
         "error": "SPID 9955779 not found in shared memory."
@@ -36,10 +75,36 @@
         "error": "SPID 9083606 not found in shared memory."
     },
     "9993466": {
-        "error": "SPID 9993466 not found in shared memory."
+        "LTP": 3,
+        "instrument_name": "ICICIPRULI25FEB25MARFUT",
+        "buy_leg": 38881,
+        "sell_leg": 39930,
+        "buy_ask_price": 573.7,
+        "sell_bid_price": 576.2,
+        "buyInstrumentName": "ICICIPRULI25FEBFUT",
+        "sellInstrumentName": "ICICIPRULI25MARFUT",
+        "spread": 2.5,
+        "profit": 1875.0,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "11196892": {
-        "error": "SPID 11196892 not found in shared memory."
+        "LTP": 0.11,
+        "instrument_name": "YESBANK25MAR25APRFUT",
+        "buy_leg": 43450,
+        "sell_leg": 73692,
+        "buy_ask_price": 17.56,
+        "sell_bid_price": 17.66,
+        "buyInstrumentName": "YESBANK25MARFUT",
+        "sellInstrumentName": "YESBANK25APRFUT",
+        "spread": 0.10000000000000142,
+        "profit": 2600.000000000037,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "10572609": {
         "error": "SPID 10572609 not found in shared memory."
@@ -138,7 +203,20 @@
         "error": "SPID 10002882 not found in shared memory."
     },
     "10205403": {
-        "error": "SPID 10205403 not found in shared memory."
+        "LTP": 7.85,
+        "instrument_name": "NESTLEIND25FEB25MARFUT",
+        "buy_leg": 39696,
+        "sell_leg": 43227,
+        "buy_ask_price": 2222.55,
+        "sell_bid_price": 2227.3,
+        "buyInstrumentName": "NESTLEIND25FEBFUT",
+        "sellInstrumentName": "NESTLEIND25MARFUT",
+        "spread": 4.75,
+        "profit": 950.0,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9110814": {
         "error": "SPID 9110814 not found in shared memory."
@@ -213,7 +291,20 @@
         "error": "SPID 9892995 not found in shared memory."
     },
     "11131417": {
-        "error": "SPID 11131417 not found in shared memory."
+        "LTP": 0,
+        "instrument_name": "MPHASIS25MAR25APRFUT",
+        "buy_leg": 73497,
+        "sell_leg": 43195,
+        "buy_ask_price": 2614.6,
+        "sell_bid_price": 2592.55,
+        "buyInstrumentName": "MPHASIS25APRFUT",
+        "sellInstrumentName": "MPHASIS25MARFUT",
+        "spread": 22.049999999999727,
+        "profit": 6063.749999999925,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "11157812": {
         "error": "SPID 11157812 not found in shared memory."
@@ -237,7 +328,20 @@
         "error": "SPID 9958600 not found in shared memory."
     },
     "11176295": {
-        "error": "SPID 11176295 not found in shared memory."
+        "LTP": 0,
+        "instrument_name": "SUPREMEIND25MAR25APRFUT",
+        "buy_leg": 73575,
+        "sell_leg": 43370,
+        "buy_ask_price": 3683.85,
+        "sell_bid_price": 3662.2,
+        "buyInstrumentName": "SUPREMEIND25APRFUT",
+        "sellInstrumentName": "SUPREMEIND25MARFUT",
+        "spread": 21.65000000000009,
+        "profit": 2706.2500000000114,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9879784": {
         "error": "SPID 9879784 not found in shared memory."
@@ -270,7 +374,20 @@
         "error": "SPID 10666888 not found in shared memory."
     },
     "9015667": {
-        "error": "SPID 9015667 not found in shared memory."
+        "LTP": -9.2,
+        "instrument_name": "ALKEM25FEB25MARFUT",
+        "buy_leg": 35187,
+        "sell_leg": 35080,
+        "buy_ask_price": 4726.2,
+        "sell_bid_price": 4727.25,
+        "buyInstrumentName": "ALKEM25MARFUT",
+        "sellInstrumentName": "ALKEM25FEBFUT",
+        "spread": 1.050000000000182,
+        "profit": 105.00000000001819,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "10380787": {
         "error": "SPID 10380787 not found in shared memory."
@@ -300,7 +417,20 @@
         "error": "SPID 10418906 not found in shared memory."
     },
     "11121423": {
-        "error": "SPID 11121423 not found in shared memory."
+        "LTP": 15.05,
+        "instrument_name": "M&M25MAR25APRFUT",
+        "buy_leg": 43156,
+        "sell_leg": 73487,
+        "buy_ask_price": 2796.45,
+        "sell_bid_price": 2810.85,
+        "buyInstrumentName": "M&M25MARFUT",
+        "sellInstrumentName": "M&M25APRFUT",
+        "spread": 14.400000000000091,
+        "profit": 2520.000000000016,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9177663": {
         "error": "SPID 9177663 not found in shared memory."
@@ -405,7 +535,20 @@
         "error": "SPID 9885717 not found in shared memory."
     },
     "11193815": {
-        "error": "SPID 11193815 not found in shared memory."
+        "LTP": 0,
+        "instrument_name": "WIPRO25MAR25APRFUT",
+        "buy_leg": 73687,
+        "sell_leg": 43438,
+        "buy_ask_price": 314.6,
+        "sell_bid_price": 313,
+        "buyInstrumentName": "WIPRO25APRFUT",
+        "sellInstrumentName": "WIPRO25MARFUT",
+        "spread": 1.6000000000000227,
+        "profit": 4800.000000000068,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "10056847": {
         "error": "SPID 10056847 not found in shared memory."
@@ -426,7 +569,20 @@
         "error": "SPID 9028400 not found in shared memory."
     },
     "10652284": {
-        "error": "SPID 10652284 not found in shared memory."
+        "LTP": -16.8,
+        "instrument_name": "TATAELXSI25FEB25MARFUT",
+        "buy_leg": 43388,
+        "sell_leg": 41441,
+        "buy_ask_price": 6093.15,
+        "sell_bid_price": 6093.8,
+        "buyInstrumentName": "TATAELXSI25MARFUT",
+        "sellInstrumentName": "TATAELXSI25FEBFUT",
+        "spread": 0.6500000000005457,
+        "profit": 65.00000000005457,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9071008": {
         "error": "SPID 9071008 not found in shared memory."
@@ -540,7 +696,20 @@
         "error": "SPID 9633384 not found in shared memory."
     },
     "9293651": {
-        "error": "SPID 9293651 not found in shared memory."
+        "LTP": 0.62,
+        "instrument_name": "CESC25FEB25MARFUT",
+        "buy_leg": 36165,
+        "sell_leg": 35411,
+        "buy_ask_price": 127.72,
+        "sell_bid_price": 128.01,
+        "buyInstrumentName": "CESC25FEBFUT",
+        "sellInstrumentName": "CESC25MARFUT",
+        "spread": 0.28999999999999204,
+        "profit": 848.2499999999767,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9084376": {
         "error": "SPID 9084376 not found in shared memory."
@@ -831,7 +1000,20 @@
         "error": "SPID 11120654 not found in shared memory."
     },
     "9086682": {
-        "error": "SPID 9086682 not found in shared memory."
+        "LTP": -5.05,
+        "instrument_name": "AUBANK25MAR25APRFUT",
+        "buy_leg": 69082,
+        "sell_leg": 35225,
+        "buy_ask_price": 491.6,
+        "sell_bid_price": 496,
+        "buyInstrumentName": "AUBANK25APRFUT",
+        "sellInstrumentName": "AUBANK25MARFUT",
+        "spread": 4.399999999999977,
+        "profit": 4399.999999999977,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "10295211": {
         "error": "SPID 10295211 not found in shared memory."
@@ -930,7 +1112,20 @@
         "error": "SPID 10679716 not found in shared memory."
     },
     "10689722": {
-        "error": "SPID 10689722 not found in shared memory."
+        "LTP": 0.1,
+        "instrument_name": "YESBANK25FEB25MARFUT",
+        "buy_leg": 41587,
+        "sell_leg": 43450,
+        "buy_ask_price": 17.45,
+        "sell_bid_price": 17.53,
+        "buyInstrumentName": "YESBANK25FEBFUT",
+        "sellInstrumentName": "YESBANK25MARFUT",
+        "spread": 0.08000000000000185,
+        "profit": 2080.000000000048,
+        "expiry_dates": [
+            "2025-02-28",
+            "2025-03-27"
+        ]
     },
     "9037200": {
         "error": "SPID 9037200 not found in shared memory."

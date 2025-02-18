@@ -6,18 +6,30 @@ import threading
 from datetime import datetime
 from multiprocessing import shared_memory
 from concurrent.futures import ThreadPoolExecutor
-from EntryManager import SpreadEntryManager
-
+from OrderManager import OrderManager 
 from flask import Flask, jsonify, render_template, request
 
 # ========== XTS / MarketData Imports (Adjust these according to your project) ==========
+# Example: from Connect import XTSConnect
+# Example: from MarketDataSocketClient import MDSocket_io
+
+# If you don't use these, remove or comment them out.
 from Connect import XTSConnect
 from MarketDataSocketClient import MDSocket_io
 
-# Create Flask app
+# ------------------------------------------------------------------------------
+# SpreadEntryManager import
+# ------------------------------------------------------------------------------
+from EntryManager import SpreadEntryManager
+
+# ------------------------------------------------------------------------------
+# Flask app initialization
+# ------------------------------------------------------------------------------
 app = Flask(__name__)
 
-# ========== API Credentials & Initialization ==========
+# ------------------------------------------------------------------------------
+# API Credentials & XTS Initialization (Adjust to your real credentials)
+# ------------------------------------------------------------------------------
 API_KEY = '0b84a5c57dcdf2b3a32261'
 API_SECRET = 'Djya854$gm'
 SOURCE = 'WebAPI'
@@ -27,52 +39,56 @@ login_response = xt.marketdata_login()  # Obtain token for MarketData
 marketDataToken = login_response['result']['token']
 muserID = login_response['result']['userID']
 
-# Initialize the MarketData socket
+# Initialize the MarketData socket (if you actually use socket connection)
 soc = MDSocket_io(marketDataToken, muserID)
 
-# ========== Load Instrument Mappings and Other JSON Files ==========
-# Primary futures mapping (used for subscriptions)
+# ------------------------------------------------------------------------------
+# Load JSON Files
+# ------------------------------------------------------------------------------
+# 1) Primary futures mapping
 with open('data/futures_mapping2.json', 'r') as f:
     instruments_mapping = json.load(f)
 
-# Spread mapping (used for spread processing)
-# If `spd` is indeed the same file but used differently, keep them separate
+# 2) Spread mapping (same JSON, but used differently)
 with open('data/futures_mapping2.json', 'r') as file:
     spd = json.load(file)
 
-# Contract names
+# 3) Instrument names
 with open(r"data/contractnames.json", "r") as f:
     instrumentname = json.load(f)
 
-# Lot sizes
+# 4) Lot sizes
 with open(r'data/lotsize.json', 'r') as f:
     lotsizejson = json.load(f)
 
-# Exchange instruments (if needed elsewhere)
+# 5) Exchange instruments (if needed)
 with open(r"data/exchange_instruments2.json", "r") as f:
     Instruments = json.load(f)
 
-# ========== Global Data Structures ==========
-# List of subscriptions maintained in a JSON file
+# ------------------------------------------------------------------------------
+# Global Data Structures
+# ------------------------------------------------------------------------------
 SUBSCRIPTIONS_FILE = 'data/subscriptions.json'
 subscriptions = []
 if os.path.exists(SUBSCRIPTIONS_FILE):
     with open(SUBSCRIPTIONS_FILE, 'r') as sub_file:
         subscriptions = json.load(sub_file)
 
-# PID file path
+# PID management
 PID_FILE = "data/fetching_pid.txt"
 
-# Expiry dates (update as needed)
+# Example expiry dates
 EXPIRY_DATES = [
     datetime.strptime("2025-02-28", "%Y-%m-%d"),
     datetime.strptime("2025-03-27", "%Y-%m-%d")
 ]
 
-# Threading lock
+# Lock for data manipulation
 datachanging_lock = threading.Lock()
 
-# ========== Helper Functions ==========
+# ------------------------------------------------------------------------------
+# Helper Functions
+# ------------------------------------------------------------------------------
 
 def save_pid(pid):
     """Save process ID to a file."""
@@ -95,26 +111,38 @@ def delete_pid():
         os.remove(PID_FILE)
 
 def read_from_shm(exchange_id):
-    """Reads market data from shared memory and returns JSON."""
+    """
+    Reads market data from shared memory and returns JSON.
+    Returns None if shared memory is unavailable or data cannot be parsed.
+    """
     try:
         shm = shared_memory.SharedMemory(name=f"shm_{exchange_id}")
         raw_data = bytes(shm.buf).rstrip(b"\x00").decode("utf-8")
         return json.loads(raw_data)
-    except Exception as e:
-        
+    except Exception:
         return None
+
+# ------------------------------------------------------------------------------
+# SpreadEntryManager instance
+# ------------------------------------------------------------------------------
 entry_manager = SpreadEntryManager(csv_file='spread_positions.csv')
 
-
+# ------------------------------------------------------------------------------
+# Process Single Spread Function (Updated to handle +/- LTP)
+# ------------------------------------------------------------------------------
 def process_single_spread(spdid, instrumentname):
-    """Process a single SPID's spread data from shared memory."""
+    """
+    Process a single SPID's spread data from shared memory,
+    determining buy_leg vs. sell_leg based on the sign of LTP.
+    """
     result = {}
 
-    # Read spread data from shared memory
+    # 1) Read primary SPID data
     spread_data = read_from_shm(spdid)
     if not spread_data:
         return {"error": f"SPID {spdid} not found in shared memory."}
 
+    # 2) Extract LTP
     ltp = spread_data.get("Touchline", {}).get("LastTradedPrice")
     if ltp is None or not isinstance(ltp, (int, float)):
         return {"error": f"Invalid or missing LTP for SPID {spdid}"}
@@ -122,108 +150,109 @@ def process_single_spread(spdid, instrumentname):
     result['LTP'] = ltp
     result['instrument_name'] = instrumentname.get(str(spdid), "Unknown Instrument")
 
-    a1, b1 = 0, 0
+    # 3) Check that spdid is in our spd mapping
+    if str(spdid) not in spd:
+        return {"error": f"No spread mapping for SPID {spdid} in spd."}
 
-    if str(spdid) in spd:
-        result['related_spids'] = []
-        related_spids = spd[str(spdid)]
-        for i, related_spid in enumerate(related_spids):
-            related_data = {
-                'spid': related_spid,
-                'instrument_name': instrumentname.get(str(related_spid), "Unknown Instrument")
-            }
-            related_spread_data = read_from_shm(related_spid)
+    related_spids = spd[str(spdid)]
+    if len(related_spids) != 2:
+        return {"error": f"SPID {spdid} has {len(related_spids)} related spids. Expected 2."}
 
-            if related_spread_data:
-                bids = related_spread_data.get("Bids", [])
-                asks = related_spread_data.get("Asks", [])
+    # 4) Based on the sign of LTP, decide which spid is buy_leg vs. sell_leg
+    if ltp > 0:
+        buy_leg = related_spids[0]
+      
+        sell_leg = related_spids[1]
+    else:
+        buy_leg = related_spids[1]
+        sell_leg = related_spids[0]
 
-                # Depending on LTP > 0 or 0, choose which side to read from
-                if ltp > 0:
-                    if i == 0 and asks:
-                        a1 = asks[0].get("Price", 0) or 0
-                        related_data['ask_price'] = a1
-                    elif i == 1 and bids:
-                        b1 = bids[0].get("Price", 0) or 0
-                        related_data['bid_price'] = b1
-                else:
-                    if i == 0 and bids:
-                        b1 = bids[0].get("Price", 0) or 0
-                        related_data['bid_price'] = b1
-                    elif i == 1 and asks:
-                        a1 = asks[0].get("Price", 0) or 0
-                        related_data['ask_price'] = a1
-            else:
-                related_data['error'] = 'Data not found in shared memory.'
-                # If data is missing, skip or break. Here, we skip.
-                return None
+    # 5) Read each leg's shared memory
+    buy_data = read_from_shm(buy_leg)
 
-            result['related_spids'].append(related_data)
+    sell_data = read_from_shm(sell_leg)
+    if not buy_data or not sell_data:
+        return {
+            "error": "Missing data for one or both legs",
+            "buy_leg_data_found": bool(buy_data),
+            "sell_leg_data_found": bool(sell_data)
+        }
 
-        actual_spread = abs(b1 - a1)
-        lot_size = lotsizejson.get(str(spdid), 0) or 0
-        total_profit = actual_spread * lot_size
+    # 6) Extract best Ask for the buy_leg
+    buy_asks = buy_data.get("Asks", [])
+    if buy_asks:
+        buy_ask_price = buy_asks[0].get("Price", 0)
+    else:
+        buy_ask_price = 0
 
-        result['spread'] = actual_spread
-        result['profit'] = total_profit
-        result['expiry_dates'] = [date.strftime("%Y-%m-%d") for date in EXPIRY_DATES]
+    # 7) Extract best Bid for the sell_leg
+    sell_bids = sell_data.get("Bids", [])
+    if sell_bids:
+        sell_bid_price = sell_bids[0].get("Price", 0)
+    else:
+        sell_bid_price = 0
 
-        # ===========================
-        #   Check for Entry Logic
-        # ===========================
-        if (ltp < actual_spread) and (ltp!=0):
-            # For demonstration, let’s define:
-            #   - 'buy' is the first leg (the first related_spid in spd[str(spdid)])
-            #   - 'sell' is the second leg (the second related_spid)
-            #   - both with the same lot_size as 'quantity'
-            #   - 'entry price' is the best ask for the buy leg and best bid for the sell leg
-            #
-            # This is just an example; adapt to your real logic.
+    # 8) Compute an example "actual_spread"
+    actual_spread = abs(sell_bid_price - buy_ask_price)
+    lot_size = lotsizejson.get(str(spdid), 0) or 0
+    total_profit_estimate = actual_spread * lot_size
+    buy_instrument_name = instrumentname.get(str(buy_leg), "Unknown")
+    sell_instrument_name = instrumentname.get(str(sell_leg), "Unknown")
 
-            # We assume there are exactly 2 related spids for the spread:
-            if len(related_spids) == 2:
-                buy_leg = related_spids[0]
-                sell_leg = related_spids[1]
+    # 9) Populate result dict
+    result.update({
+        "buy_leg": buy_leg,
+        "sell_leg": sell_leg,
+        "buy_ask_price": buy_ask_price,
+        "sell_bid_price": sell_bid_price,
+        "buyInstrumentName":buy_instrument_name,
+        "sellInstrumentName":sell_instrument_name,
+        "spread": actual_spread,
+        "profit": total_profit_estimate,
+        "expiry_dates": [d.strftime("%Y-%m-%d") for d in EXPIRY_DATES],
+    })
 
-                # Let's find the relevant ask/bid for the buy/sell legs from the data we captured
-                buy_ask_price = result['related_spids'][0].get('ask_price', 0)  # from the first leg
-                sell_bid_price = result['related_spids'][1].get('bid_price', 0) # from the second leg
+    # 10) Example condition to create a new position
+    #     (You can adapt the logic as you wish; this is just a sample.)
+    if (abs(ltp) > actual_spread) and (ltp != 0):
+        buy_instrument_name = instrumentname.get(str(buy_leg), "Unknown")
+        sell_instrument_name = instrumentname.get(str(sell_leg), "Unknown")
 
-                buy_instrument_id = buy_leg
-                sell_instrument_id = sell_leg
-                buy_instrument_name = instrumentname.get(str(buy_instrument_id), "Unknown")
-                sell_instrument_name = instrumentname.get(str(sell_instrument_id), "Unknown")
-
-                # Now use the SpreadEntryManager to create a new position if none exists
-                entry_manager.create_position(
-                    spread_id=spdid,
-                    buy_ticker_id=buy_instrument_id,
-                    buy_ticker_name=buy_instrument_name,
-                    buy_quantity=lot_size,
-                    buy_entry_price=buy_ask_price,
-                    sell_ticker_id=sell_instrument_id,
-                    sell_ticker_name=sell_instrument_name,
-                    sell_quantity=lot_size,
-                    sell_entry_price=sell_bid_price
-                )
+        entry_manager.create_position(
+            spread_id=spdid,
+            buy_ticker_id=buy_leg,
+            buy_ticker_name=buy_instrument_name,
+            buy_quantity=lot_size,
+            buy_entry_price=buy_ask_price,
+            sell_ticker_id=sell_leg,
+            sell_ticker_name=sell_instrument_name,
+            sell_quantity=lot_size,
+            sell_entry_price=sell_bid_price
+        )
 
     return result
+
+# ------------------------------------------------------------------------------
+# Process All Spreads Function
+# ------------------------------------------------------------------------------
 def process_spread_data():
-    """Process all spreads in `spd` and save the result to JSON."""
+    """
+    Process all spreads listed in `spd` and save results to JSON.
+    """
     result = {}
     with ThreadPoolExecutor() as executor:
-        futures = {
+        futures_map = {
             executor.submit(process_single_spread, int(spid), instrumentname): spid
             for spid in spd
         }
-        for future in futures:
-            spid = futures[future]
+        for future in futures_map:
+            spid = futures_map[future]
             try:
                 result_data = future.result()
                 if result_data:
                     result[spid] = result_data
                 else:
-                    result[spid] = {'error': f"SPID {spid} skipped due to missing data"}
+                    result[spid] = {'error': f"SPID {spid} returned no data"}
             except Exception as e:
                 result[spid] = {'error': str(e)}
 
@@ -233,14 +262,15 @@ def process_spread_data():
 
     return {'message': 'Data processed and saved successfully'}
 
-# ========== Routes ==========
-
+# ------------------------------------------------------------------------------
+# Flask Routes
+# ------------------------------------------------------------------------------
 @app.route('/')
 def index():
     """Default route to render your main template."""
     return render_template('t4.html')
 
-@app.route('/mdlist',methods=['POST'])
+@app.route('/mdlist', methods=['POST'])
 def mdlist():
     """Show currently subscribed instruments."""
     current_subs = []
@@ -250,19 +280,22 @@ def mdlist():
 
     # Filter only those in instruments_mapping
     current_subs = [
-        sub for sub in current_subs 
+        sub for sub in current_subs
         if str(sub['exchangeInstrumentID']) in instruments_mapping
     ]
     return render_template(
-        'index.html', 
-        keys=instruments_mapping.keys(), 
-        subscriptions=current_subs, 
+        'index.html',
+        keys=instruments_mapping.keys(),
+        subscriptions=current_subs,
         values=instrumentname
     )
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
-    """Subscribe to a particular key in instruments_mapping."""
+    """
+    Subscribe to a particular key in instruments_mapping.
+    Expects JSON: {"key": <some_instrument_key>}
+    """
     global subscriptions
     selected_key = request.json.get("key")
     if not selected_key or selected_key not in instruments_mapping:
@@ -273,15 +306,17 @@ def subscribe():
         "exchangeSegment": 2,
         "exchangeInstrumentID": int(selected_key)
     }]
-    # Also add the mapped instruments
+    # Also add mapped instruments
     for inst_id in instruments_mapping[selected_key]:
         subscription_list.append({
             "exchangeSegment": 2,
             "exchangeInstrumentID": inst_id
         })
 
-    # Update and persist the subscriptions
+    # Update subscriptions in memory
     subscriptions.extend(subscription_list)
+
+    # Persist to file
     with open(SUBSCRIPTIONS_FILE, 'w') as sub_file:
         json.dump(subscriptions, sub_file, indent=4)
 
@@ -289,7 +324,7 @@ def subscribe():
 
 @app.route('/unsubscribe', methods=['POST'])
 def unsubscribe():
-    """Unsubscribe a particular instrument ID along with its mapped IDs."""
+    """Unsubscribe a particular instrument ID + its mapped IDs."""
     global subscriptions
     exchange_id = request.json.get("exchangeInstrumentID")
     if not exchange_id or exchange_id not in instruments_mapping:
@@ -297,21 +332,20 @@ def unsubscribe():
 
     # Get all related instrument IDs
     instrument_list = [int(exchange_id)] + instruments_mapping.get(exchange_id, [])
-
-    # Remove them from current subscriptions
+    # Filter them out
     subscriptions = [
-        sub for sub in subscriptions 
+        sub for sub in subscriptions
         if sub["exchangeInstrumentID"] not in instrument_list
     ]
 
-    # Save updated subscriptions
     with open(SUBSCRIPTIONS_FILE, 'w') as sub_file:
         json.dump(subscriptions, sub_file, indent=4)
 
     return jsonify({"message": "Unsubscribed successfully"})
 
-# ========== Market Data Fetching Process Management ==========
-
+# ------------------------------------------------------------------------------
+# Market Data Fetching Process Management
+# ------------------------------------------------------------------------------
 SCRIPT_PATH = os.path.join(os.getcwd(), "MDEngine.py")
 TERMINAL_NAME = "MarketDataTerminal"
 
@@ -324,10 +358,11 @@ def start_fetching():
     if os.name == 'nt':  # Windows
         # Start Command Prompt with a specific title and run the script
         process = subprocess.Popen(
-            ['start', 'cmd', '/k', f'title {TERMINAL_NAME} && python {SCRIPT_PATH}'], shell=True
+            ['start', 'cmd', '/k', f'title {TERMINAL_NAME} && python {SCRIPT_PATH}'],
+            shell=True
         )
     else:
-        # macOS/Linux (assuming gnome-terminal for demonstration)
+        # macOS/Linux (example using gnome-terminal; adjust for your environment)
         process = subprocess.Popen(
             ['gnome-terminal', '--title=' + TERMINAL_NAME, '--', 'python3', SCRIPT_PATH],
             preexec_fn=os.setsid
@@ -351,17 +386,22 @@ def stop_fetching():
     delete_pid()
     return jsonify({"message": "Stopped fetching market data!"})
 
-# ========== Spread Data Processing Routes ==========
-
+# ------------------------------------------------------------------------------
+# Spread Data Processing Routes
+# ------------------------------------------------------------------------------
 @app.route('/process-spread-data', methods=['GET'])
 def process_and_store_spread_data():
-    """Route to process the spread data and save to file."""
+    """
+    Route to process the spread data for each SPID, then store results in JSON.
+    """
     response = process_spread_data()
     return jsonify(response)
 
 @app.route('/get-spread-data', methods=['GET'])
 def get_spread_data():
-    """Retrieve processed spread data from file."""
+    """
+    Retrieve processed spread data from file.
+    """
     try:
         with open('processed_spread_data.json', 'r') as file:
             data = json.load(file)
@@ -369,22 +409,15 @@ def get_spread_data():
     except FileNotFoundError:
         return jsonify({'error': 'Data file not found. Please process the data first.'})
 
-
-
-# ===live Postion ===   
-
-from flask import Flask, jsonify, request
-import csv
-import os
-
-# Initialize the SpreadEntryManager (reuse the same CSV file if you like)
-entry_manager = SpreadEntryManager(csv_file='spread_positions.csv')
-
+# ------------------------------------------------------------------------------
+# Live Positions (from CSV + shared memory) Routes
+# ------------------------------------------------------------------------------
 @app.route('/positions/live', methods=['GET'])
 def get_live_positions():
     """
-    Reads all open positions from the CSV, fetches live prices from shared memory,
-    computes current profit/loss, and returns as JSON.
+    Reads all open positions from the CSV (spread_positions.csv),
+    fetches live prices from shared memory, computes current P/L,
+    and returns as JSON.
     """
     positions = entry_manager._load_positions()
     live_positions = []
@@ -393,6 +426,9 @@ def get_live_positions():
         spread_id = pos['spread_id']
         buy_ticker_id = pos['buy_ticker_id']
         sell_ticker_id = pos['sell_ticker_id']
+        buy_ticker_name = pos["buy_ticker_name"]
+        sell_ticker_name = pos["sell_ticker_name"]
+
         buy_entry_price = float(pos['buy_entry_price']) if pos['buy_entry_price'] else 0.0
         sell_entry_price = float(pos['sell_entry_price']) if pos['sell_entry_price'] else 0.0
         buy_qty = float(pos['buy_quantity']) if pos['buy_quantity'] else 0.0
@@ -402,31 +438,30 @@ def get_live_positions():
         buy_data = read_from_shm(buy_ticker_id)
         sell_data = read_from_shm(sell_ticker_id)
 
-        # Safely extract the LTP (LastTradedPrice)
         buy_ltp = None
         sell_ltp = None
-
         if buy_data and "Touchline" in buy_data:
-            buy_ltp = buy_data["Touchline"].get("LastTradedPrice", None)
+            buy_ltp = buy_data["Touchline"].get("LastTradedPrice")
         if sell_data and "Touchline" in sell_data:
-            sell_ltp = sell_data["Touchline"].get("LastTradedPrice", None)
+            sell_ltp = sell_data["Touchline"].get("LastTradedPrice")
 
         if buy_ltp is None or sell_ltp is None:
-            # If we can't get LTP for either leg, skip or set 0.
+            # If no LTP found, skip or treat as 0
             continue
 
-        # Calculate live PnL
-        #    Buy PnL = (current buy price - buy_entry_price)* buy_qty
-        #    Sell PnL = (sell_entry_price - current sell price)* sell_qty
+        # Calculate live PnL:
+        #   Buy PnL = (current buy price - buy_entry_price) * buy_qty
+        #   Sell PnL = (sell_entry_price - current sell price) * sell_qty
         buy_pnl = (buy_ltp - buy_entry_price) * buy_qty
         sell_pnl = (sell_entry_price - sell_ltp) * sell_qty
         total_pnl = buy_pnl + sell_pnl
 
-        # Prepare data for JSON response
         live_positions.append({
             "spread_id": spread_id,
             "buy_ticker_id": buy_ticker_id,
             "sell_ticker_id": sell_ticker_id,
+            "buy_ticker_name": buy_ticker_name,
+            "sell_ticker_name": sell_ticker_name,
             "buy_ltp": buy_ltp,
             "sell_ltp": sell_ltp,
             "buy_entry_price": buy_entry_price,
@@ -448,7 +483,99 @@ def live_positions_view():
     return render_template('positions_live.html')
 
 
+# ------------------------------------------------------------------------------
+#PLACE Order
+# ------------------------------------------------------------------------------
 
-# ========== Main ==========
+
+# ---------------------------------------------------------------------------
+# Import the new OrderManager class
+# ---------------------------------------------------------------------------
+from OrderManager import OrderManager  # Adjust the path as needed
+
+# ---------------------------------------------------------------------------
+# New Flask route for placing orders
+# ---------------------------------------------------------------------------
+@app.route('/place-order', methods=['POST'])
+def place_order():
+    data = request.json
+    if not data:
+        return jsonify({"error": "No JSON payload received"}), 400
+
+    # Just for debugging, you can print or write the order to a file
+    print("Order received:", data)
+
+
+    buy_ticker_id = data.get("buy_ticker_id")
+    sell_ticker_id = data.get("sell_ticker_id")
+    buy_quantity = data.get("buy_quantity")
+    sell_quantity = data.get("sell_quantity")
+    buy_price = data.get("buy_price")
+    sell_price = data.get("sell_price")
+    quantity=buy_quantity*lotsizejson.get(str(buy_ticker_id),0)
+
+    orders={
+  "orders": [
+    {
+      "exchangeSegment": "NSEFO",
+      "exchangeInstrumentId": buy_ticker_id,
+      "orderType": "LIMIT",
+      "orderSide": "BUY",
+      "orderValidity": "1",
+      "quantity": quantity,
+      "price": buy_price,
+      "clientId": "MaxXTSJY2802",
+      "strategyId": "Spread"
+    },
+    {
+      "exchangeSegment": "NSEFO",
+      "exchangeInstrumentId": sell_ticker_id,
+      "orderType": "LIMIT",
+      "orderSide": "BUY",
+      "orderValidity": "1",
+      "quantity": quantity,
+      "price": sell_price,
+      "clientId": "MaxXTSJY2802",
+      "strategyId": "Spread"
+    },  ],
+"clientId": "MaxXTSJY2802",
+      "strategyId": "Spread"
+}
+    
+
+    with open("placeorder.json", "w") as f:
+       json.dump(orders, f)
+    # Additional validation logic or actual order logic...
+    #return jsonify({"message": "Order was placed (dummy response)"}), 200
+    # 2) Create an OrderManager instance (use default or custom URL)
+    order_manager = OrderManager() 
+
+   
+    result = order_manager.placeorder_basket(
+        buy_ticker_id=buy_ticker_id,
+        buy_quantity=quantity,
+        buy_price=buy_price,
+        sell_ticker_id=sell_ticker_id,
+        sell_quantity=quantity,
+        sell_price=sell_price,
+        exchange_segment="NSEFO",
+        order_type="LIMIT",
+        order_validity="1",
+        client_id="MaxXTSJY2802",
+        strategy_id="Spread"
+    )
+
+
+
+    # 4) Return JSON response to the client
+    status_code = result.get("status_code", 200)  # Extract from result
+    return jsonify(result), status_code
+
+
+
+
+# ------------------------------------------------------------------------------
+# Run the Flask app
+# ------------------------------------------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

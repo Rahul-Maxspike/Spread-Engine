@@ -4,7 +4,7 @@ API_SECRET = 'Djya854$gm'
 # API_KEY = '3642a41c547ee103920202'
 # API_SECRET = 'Qkbc461#aF'
 SOURCE = 'WebAPI'
-
+ORM_URL="http://110.172.21.62:5004/api/v1/orders/basket"
 # STOCK_DATA = {
 #    "ASIANPAINT":{
 #       "exchangeInstrumentID":236,
