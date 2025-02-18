@@ -1,166 +1,177 @@
-from flask import Flask, render_template, request, jsonify
+import csv
 import json
 import os
-import subprocess
-import signal
-
+import time
 from Connect import XTSConnect
+from multiprocessing import shared_memory
 from MarketDataSocketClient import MDSocket_io
 
-app = Flask(__name__)
-
+########################################################################
 # MarketData API Credentials
+########################################################################
 API_KEY = '0b84a5c57dcdf2b3a32261'
 API_SECRET = 'Djya854$gm'
 SOURCE = 'WebAPI'
 
-# Initialize the connection
-xt = XTSConnect(API_KEY, API_SECRET, SOURCE)
+########################################################################
+# Global variables
+########################################################################
+xt = None                 # Will hold the XTSConnect instance
+current_soc = None        # Will hold the current MDSocket_io instance
+shm_dict = {}             # Tracks shared memory for each ExchangeInstrumentID
+SHM_SIZE = 4096           # Adjust based on expected data size
+Instruments = []          # Will hold the list of instruments from JSON
+set_marketDataToken = ''  # Current MarketData token
+set_muserID = ''          # Current user ID
 
-with open("contractnames.json", "r") as file:
-    instrumentname = json.load(file)
+########################################################################
+# Step 1: Helper functions for shared memory
+########################################################################
+def create_shared_memory(exchange_id):
+    """Creates a shared memory segment for a given ExchangeInstrumentID."""
+    try:
+        if exchange_id not in shm_dict:
+            shm = shared_memory.SharedMemory(
+                name=f"shm_{exchange_id}", 
+                create=True, 
+                size=SHM_SIZE
+            )
+            shm_dict[exchange_id] = shm
+            print(f"✅ Created shared memory for {exchange_id}")
+        else:
+            print(f"⚠️ Shared memory already exists for {exchange_id}")
+    except FileExistsError:
+        print(f"⚠️ Shared memory already exists for {exchange_id}")
+        shm = shared_memory.SharedMemory(name=f"shm_{exchange_id}")
+        shm_dict[exchange_id] = shm
 
-# Login for authorization token
-response = xt.marketdata_login()
-set_marketDataToken = response['result']['token']
-set_muserID = response['result']['userID']
+def write_to_shm(exchange_id, data):
+    """Writes market data to the shared memory segment."""
+    if exchange_id not in shm_dict:
+        create_shared_memory(exchange_id)
 
-# Initialize market data socket
-soc = MDSocket_io(set_marketDataToken, set_muserID)
+    shm = shm_dict[exchange_id]
+    encoded_data = json.dumps(data).encode("utf-8")
 
-# Load instrument mapping
-with open('data/futures_mapping2.json') as f:
-    instruments_mapping = json.load(f)
+    if len(encoded_data) > SHM_SIZE:
+        print(f"⚠️ Warning: Data for {exchange_id} exceeds shared memory size and will be truncated.")
 
-# Load existing subscriptions
-subscriptions = []
-if os.path.exists('data/subscriptions.json'):
-    with open('data/subscriptions.json') as sub_file:
-        subscriptions = json.load(sub_file)
+    # Write data to shared memory
+    shm.buf[:len(encoded_data)] = encoded_data
+    # Clear out any leftover data
+    shm.buf[len(encoded_data):] = b'\x00' * (SHM_SIZE - len(encoded_data))
 
-# PID file path
-PID_FILE = "data/fetching_pid.txt"
+########################################################################
+# Step 2: Socket event handlers
+########################################################################
+def on_connect():
+    """Called when the socket is connected."""
+    print("Market Data Socket connected successfully!")
+    print("Sending subscription request for instruments:\n", Instruments)
 
+    # Send subscription
+    response = xt.send_subscription(Instruments, 1502)
+    print("Subscription response:", response)
 
-def save_pid(pid):
-    """Save process ID to a file."""
-    with open(PID_FILE, "w") as f:
-        f.write(str(pid))
+def on_message1502(data):
+    """Callback function for handling full market data (event 1502-json-full)."""
+    print(data)
+    try:
+        data_dict = json.loads(data)
+        exchange_id = str(data_dict.get("ExchangeInstrumentID"))
+        if exchange_id:
+            write_to_shm(exchange_id, data_dict)
+            print(f"✅ Updated shared memory for {exchange_id}")
+        else:
+            print("⚠️ ExchangeInstrumentID missing in received data")
+    except json.JSONDecodeError:
+        print("❌ Error: Received invalid JSON data")
 
+def on_disconnect():
+    """
+    Called when the socket is disconnected.
+    We create a brand new MDSocket_io client and reconnect.
+    """
+    global current_soc
 
-def get_pid():
-    """Retrieve process ID from the file."""
-    if os.path.exists(PID_FILE):
-        with open(PID_FILE, "r") as f:
-            try:
-                return int(f.read().strip())
-            except ValueError:
-                return None
-    return None
+    print("Market Data Socket disconnected! Attempting to reconnect in 5 seconds...")
+    time.sleep(5)
+    try:
+        # If token might have expired, re-login:
+        response = xt.marketdata_login()
+        new_token = response['result']['token']
+        new_userID = response['result']['userID']
+        print("Login Response (re-login):", response)
 
+        # Create a brand new socket instance
+        current_soc = create_new_socket(new_token, new_userID)
+        current_soc.connect()
+        print("Reconnect attempt done with a new socket instance.")
+    except Exception as e:
+        print(f"Reconnection failed: {e}")
 
-def delete_pid():
-    """Delete the PID file."""
-    if os.path.exists(PID_FILE):
-        os.remove(PID_FILE)
+def on_error(data):
+    """Called when there's an error event from the server."""
+    print("Market Data Error:", data)
 
+########################################################################
+# Step 3: Helper function to create/bind a new MDSocket_io
+########################################################################
+def create_new_socket(token, user_id):
+    """
+    Creates a new MDSocket_io object, binds all event handlers,
+    and returns the object.
+    """
+    soc = MDSocket_io(token, user_id)
 
-@app.route('/')
-def index():
-    subscriptions = []
-    if os.path.exists('data/subscriptions.json'):
-        with open('data/subscriptions.json') as sub_file:
-            subscriptions = json.load(sub_file)
-    subscriptions = [sub for sub in subscriptions if str(sub['exchangeInstrumentID']) in instruments_mapping]
-    return render_template('index.html', keys=instruments_mapping.keys(), subscriptions=subscriptions, values=instrumentname)
+    # Assign the "shortcut" handlers
+    soc.on_connect = on_connect
+    soc.on_message1502_json_full = on_message1502
 
+    # If you need the emitter directly, get it:
+    el = soc.get_emitter()
+    el.on('connect', on_connect)
+    el.on('1502-json-full', on_message1502)
+    el.on('disconnect', on_disconnect)
+    el.on('error', on_error)
 
-@app.route('/subscribe', methods=['POST'])
-def subscribe():
-    selected_key = request.json.get("key")
-    if not selected_key or selected_key not in instruments_mapping:
-        return jsonify({"error": "Invalid key"}), 400
+    return soc
 
-    # Create subscription list
-    subscription_list = [{
-        "exchangeSegment": 2,
-        "exchangeInstrumentID": int(selected_key)
-    }]
-    for inst_id in instruments_mapping[selected_key]:
-        subscription_list.append({
-            "exchangeSegment": 2,
-            "exchangeInstrumentID": inst_id
-        })
+########################################################################
+# Step 4: Main routine
+########################################################################
+def main():
+    global xt, current_soc, set_marketDataToken, set_muserID, Instruments
 
-    # Store subscriptions
-    subscriptions.extend(subscription_list)
-    with open('data/subscriptions.json', 'w') as sub_file:
-        json.dump(subscriptions, sub_file, indent=4)
+    # 1. Initialize XTSConnect
+    xt = XTSConnect(API_KEY, API_SECRET, SOURCE)
 
-    return jsonify({"message": "Subscription successful", "response": response})
+    # 2. Login for the MarketData token
+    response = xt.marketdata_login()
+    print("Login Response:", response)
 
+    # 3. Extract token / userID
+    set_marketDataToken = response['result']['token']
+    set_muserID = response['result']['userID']
 
-@app.route('/unsubscribe', methods=['POST'])
-def unsubscribe():
-    exchange_id = request.json.get("exchangeInstrumentID")
-    if not exchange_id or exchange_id not in instruments_mapping:
-        return jsonify({"error": "Invalid instrument ID"}), 400
+    # 4. Read instrument list from JSON
+    with open(r'data\exchange_instruments2.json') as f:
+        Instruments = json.load(f)
 
-    # Get all related instrument IDs from the mapping
-    instrument_list = [int(exchange_id)] + instruments_mapping.get(exchange_id, [])
+    # 5. Create and connect the socket
+    current_soc = create_new_socket(set_marketDataToken, set_muserID)
+    current_soc.connect()
 
-    # Remove all related instrument IDs from subscriptions
-    global subscriptions
-    subscriptions = [sub for sub in subscriptions if sub["exchangeInstrumentID"] not in instrument_list]
+    # At this point, the socket is connected and listening.
+    # If the connection drops, `on_disconnect` will be triggered,
+    # which will create a new socket instance and reconnect automatically.
 
-    # Save the updated subscriptions
-    with open('data/subscriptions.json', 'w') as sub_file:
-        json.dump(subscriptions, sub_file, indent=4)
+    # 6. Optionally keep the main thread alive, do other tasks, etc.
+    while True:
+        time.sleep(1)
 
-    return jsonify({"message": "Unsubscribed successfully"})
-
-
-# Market Data Fetching Process Management
-SCRIPT_PATH = os.path.join(os.getcwd(), "MDEngine.py")
-TERMINAL_NAME = "MarketDataTerminal"
-
-
-@app.route('/start_fetching', methods=['POST'])
-def start_fetching():
-    if get_pid() is not None:
-        return jsonify({"message": "Market data fetching is already running!"})
-
-    if os.name == 'nt':  # Windows
-        # Start Command Prompt with a specific title and run the script
-        process = subprocess.Popen(
-            ['start', 'cmd', '/k', f'title {TERMINAL_NAME} && python {SCRIPT_PATH}'], shell=True
-        )
-    elif os.name == 'posix':  # macOS/Linux
-        # Start terminal with a specific name
-        process = subprocess.Popen(
-            ['gnome-terminal', '--title=' + TERMINAL_NAME, '--', 'python3', SCRIPT_PATH], preexec_fn=os.setsid
-        )
-
-    save_pid(process.pid)
-    return jsonify({"message": "Started fetching market data!", "pid": process.pid})
-
-
-@app.route('/stop_fetching', methods=['POST'])
-def stop_fetching():
-    pid = get_pid()
-    if pid is None:
-        return jsonify({"message": "Market data fetching is not running!"})
-
-    if os.name == 'nt':  # Windows
-        # Kill all terminals with the specific title
-        subprocess.call(['taskkill', '/F', '/FI', f'WINDOWTITLE eq {TERMINAL_NAME}*'], shell=True)
-    elif os.name == 'posix':  # macOS/Linux
-        # Kill all terminals running with the specific name
-        subprocess.call(["pkill", "-f", f"gnome-terminal.*{TERMINAL_NAME}"])
-
-    delete_pid()
-    return jsonify({"message": "Stopped fetching market data!"})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+########################################################################
+# Entry point
+########################################################################
+if __name__ == "__main__":
+    main()

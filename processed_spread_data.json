@@ -13,7 +13,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 2025
     },
     "10010573": {
         "error": "SPID 10010573 not found in shared memory."
@@ -38,7 +39,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 100
     },
     "11169345": {
         "error": "SPID 11169345 not found in shared memory."
@@ -60,7 +62,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 125
     },
     "9955779": {
         "error": "SPID 9955779 not found in shared memory."
@@ -88,7 +91,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 750
     },
     "11196892": {
         "LTP": 0.11,
@@ -104,7 +108,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 26000
     },
     "10572609": {
         "error": "SPID 10572609 not found in shared memory."
@@ -216,7 +221,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 200
     },
     "9110814": {
         "error": "SPID 9110814 not found in shared memory."
@@ -304,7 +310,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 275
     },
     "11157812": {
         "error": "SPID 11157812 not found in shared memory."
@@ -341,7 +348,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 125
     },
     "9879784": {
         "error": "SPID 9879784 not found in shared memory."
@@ -387,7 +395,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 100
     },
     "10380787": {
         "error": "SPID 10380787 not found in shared memory."
@@ -430,7 +439,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 175
     },
     "9177663": {
         "error": "SPID 9177663 not found in shared memory."
@@ -548,7 +558,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 3000
     },
     "10056847": {
         "error": "SPID 10056847 not found in shared memory."
@@ -582,7 +593,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 100
     },
     "9071008": {
         "error": "SPID 9071008 not found in shared memory."
@@ -709,7 +721,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 2925
     },
     "9084376": {
         "error": "SPID 9084376 not found in shared memory."
@@ -1013,7 +1026,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 1000
     },
     "10295211": {
         "error": "SPID 10295211 not found in shared memory."
@@ -1125,7 +1139,8 @@
         "expiry_dates": [
             "2025-02-28",
             "2025-03-27"
-        ]
+        ],
+        "lotsize": 26000
     },
     "9037200": {
         "error": "SPID 9037200 not found in shared memory."

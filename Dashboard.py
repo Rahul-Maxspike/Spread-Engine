@@ -210,6 +210,7 @@ def process_single_spread(spdid, instrumentname):
         "spread": actual_spread,
         "profit": total_profit_estimate,
         "expiry_dates": [d.strftime("%Y-%m-%d") for d in EXPIRY_DATES],
+        "lotsize":lot_size
     })
 
     # 10) Example condition to create a new position
@@ -283,10 +284,16 @@ def mdlist():
         sub for sub in current_subs
         if str(sub['exchangeInstrumentID']) in instruments_mapping
     ]
+
+    # Sort the keys based on their display name (the value in instruments_mapping)
+    sorted_keys = sorted(instruments_mapping.keys(), key=lambda k: instruments_mapping[k])
+
     return render_template(
         'index.html',
-        keys=instruments_mapping.keys(),
+        # Pass the sorted list of keys instead of the raw dictionary keys
+        keys=sorted_keys,
         subscriptions=current_subs,
+        # 'values' is your dictionary (instrumentname) used for display
         values=instrumentname
     )
 

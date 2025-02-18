@@ -17,7 +17,10 @@
   <!-- Custom CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+  >
   <style>
     /* Dark Mode Styling */
     body {
@@ -53,7 +56,6 @@
       color: #f0f0f0;
       border: 1px solid #555;
     }
-
     .form-control:focus {
       background-color: #444;
       border-color: #777;
@@ -112,80 +114,195 @@
       background-color: #2a2a2a;
     }
 
-    .btn-primary{
-        width: 10vw;
-        height: 3vh;
+    .btn-primary {
+      width: 10vw;
+      height: 3vh;
     }
 
-    .selectcont{
-        display: flex;
-       justify-content: center;
-       align-items: center;
-       flex-direction: column;
-
-    }
-    .heading{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
+    .selectcont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
-    .backbutton{
-        position: absolute;
-        left: 0;
-        margin-left: 1rem;
-        background-color: orange;
-        width:5vw;
-        height: 5vh;
-        font-size: 1rem;
+    .heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .backbutton {
+      position: absolute;
+      left: 0;
+      margin-left: 1rem;
+      background-color: orange;
+      width: 5vw;
+      height: 5vh;
+      font-size: 1rem;
+    }
+
+    #instrumentSelect{
+      height: 6vh;
+      background-color: #363636;
+      color: white;
+      
+      margin: 5px;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin-bottom: 6px;
+    }
+
+    button {
+  margin-top:5px ;
+  width: 180px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: #00a600;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  background: #00a600;
+}
+
+button,
+button span {
+  transition: 200ms;
+}
+
+button .text {
+  transform: translateX(35px);
+  color: white;
+  font-weight: bold;
+}
+
+button .icon {
+  position: absolute;
+  border-left: 1px solid #007300;
+  transform: translateX(110px);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button svg {
+  width: 15px;
+  fill: #eee;
+}
+
+button:hover {
+  background: #00a600;
+}
+
+button:active {
+  background: #00cc00;
+}
+
+button:hover .text {
+  color: transparent;
+}
+
+button:hover .icon {
+  width: 150px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active .icon svg {
+  transform: scale(0.8);
+}
+
+.buttonSpan {
+  color: white;
+  margin: 150px;
+  font-size: 30px;
+}
+
+.subscribediv{
+  display: flex;
+  flex-direction: row;
+}
+
+*{
+  color:white
+}
+#subscribedTable{
+  width: 80vw;
+  display: block;
+
+  align-items: center;
+  justify-content: center;
+}
   </style>
 </head>
 <body>
 <div class="container main-container">
   
   <!-- Heading and Back Button -->
-  <div class="d-flex justify-content-center align-items-center ">
-    <h3 class="mb-0  heading"><button class="btn btn-secondary backbutton" onclick="window.document.location.href = '/'">
+  <div class="d-flex justify-content-center align-items-center">
+    <h3 class="mb-0 heading">
+      <button
+        class="btn btn-secondary backbutton"
+        onclick="window.document.location.href = '/'"
+      >
         Back
-      </button>Instrument Subscription  </h3>
-  
+      </button>
+      Instrument Subscription
+    </h3>
   </div>
 
   <!-- Row for Subscription and Market Data Control -->
   <div class="row selectcont">
     <!-- Subscription Card -->
+    <div class="card-body">
+      <div class="form-group mb-4">
+        <label for="instrumentSelect" class="font-weight-bold">Instruments</label>
+        <div class="d-flex flex-row align-items-center subscribediv">
+          <!-- The select is populated via Jinja templating -->
+          <select id="instrumentSelect">
+            {% for key in keys %}
+              <option value="{{ key }}">{{ values.get(key, key) }}</option>
+            {% endfor %}
+          </select>
+          <!-- From Uiverse.io by UtariD86 --> 
+<button class="noselect" onclick="subscribe()">
+  <span class="text">Subscribe</span
+  ><span class="icon"
+    ><svg
+      viewBox="0 0 24 24"
+      height="24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    ></svg><span class="buttonSpan">+</span></span
+  >
+</button>
 
-        <div class="card-body">
-         
-          <div class="form-group mb-4">
-            <label for="instrumentSelect" class="font-weight-bold">Instruments</label>
-            <div class="d-flex align-items-center">
-              <select class="form-control w-auto" id="instrumentSelect">
-                {% for key in keys %}
-                  <option value="{{ key }}">{{ values.get(key, key) }}</option>
-                {% endfor %}
-              </select>
-              <button class="btn btn-primary ml-2" onclick="subscribe()">Subscribe</button>
-            </div>
-          </div>
+          
+
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Market Data Control Buttons -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Market Data Control</h5>
-          <button class="btn btn-success w-100 mb-2" id="start-btn">
-            Start Market Data
-          </button>
-          <button class="btn btn-danger w-100" id="stop-btn">
-            Stop Market Data
-          </button>
-        </div>
+  <!-- Market Data Control Buttons -->
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Market Data Control</h5>
+        <button class="btn btn-success w-100 mb-2" id="start-btn">
+          Start Market Data
+        </button>
+        <button class="btn btn-danger w-100" id="stop-btn">
+          Stop Market Data
+        </button>
       </div>
     </div>
   </div>
@@ -202,7 +319,9 @@
     <tbody>
       {% for sub in subscriptions %}
       <tr>
-        <td>{{ values.get(sub.exchangeInstrumentID|string, sub.exchangeInstrumentID) }}</td>
+        <td>
+          {{ values.get(sub.exchangeInstrumentID|string, sub.exchangeInstrumentID) }}
+        </td>
         <td>
           <button
             class="btn btn-sm btn-danger"
@@ -217,9 +336,12 @@
   </table>
 
   <!-- Response Message Alert -->
-  <div id="responseMessage" class="alert alert-info" role="alert" style="display:none;">
-    <!-- Will be populated dynamically -->
-  </div>
+  <div
+    id="responseMessage"
+    class="alert alert-info"
+    role="alert"
+    style="display:none;"
+  ></div>
 
 </div>
 
@@ -236,46 +358,63 @@
 ></script>
 
 <script>
+  // Sort options in the select once the DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    let select = document.getElementById("instrumentSelect");
+    let options = Array.from(select.options);
+
+    // Sort by displayed text (option.text)
+    options.sort((a, b) => a.text.localeCompare(b.text));
+
+    // Clear the existing options
+    select.innerHTML = "";
+
+    // Re-append options in sorted order
+    options.forEach(option => {
+      select.appendChild(option);
+    });
+  });
+
   function subscribe() {
     let selectedKey = document.getElementById("instrumentSelect").value;
 
     fetch("/subscribe", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ key: selectedKey })
     })
-    .then(response => response.json())
-    .then(data => {
-      showMessage(data.message || data.error);
-      // Reload to update the subscription list
-      location.reload();
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      showMessage("An error occurred while subscribing.");
-    });
+      .then(response => response.json())
+      .then(data => {
+        showMessage(data.message || data.error);
+        // Reload to update the subscription list
+        location.reload();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        showMessage("An error occurred while subscribing.");
+      });
   }
 
   function unsubscribe(exchangeInstrumentID) {
     fetch("/unsubscribe", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ exchangeInstrumentID: exchangeInstrumentID })
     })
-    .then(response => response.json())
-    .then(data => {
-      showMessage(data.message || data.error);
-      // Reload to update the subscription list
-      location.reload();
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      showMessage("An error occurred while unsubscribing.");
-    });
+      .then(response => response.json())
+      .then(data => {
+        showMessage(data.message || data.error);
+        // Reload to update the subscription list
+        location.reload();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        showMessage("An error occurred while unsubscribing.");
+      });
   }
 
   document.getElementById("start-btn").addEventListener("click", function() {
