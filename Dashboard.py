@@ -9,11 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from OrderManager import OrderManager 
 from flask import Flask, jsonify, render_template, request
 
-# ========== XTS / MarketData Imports (Adjust these according to your project) ==========
-# Example: from Connect import XTSConnect
-# Example: from MarketDataSocketClient import MDSocket_io
 
-# If you don't use these, remove or comment them out.
 from Connect import XTSConnect
 from MarketDataSocketClient import MDSocket_io
 
@@ -215,7 +211,7 @@ def process_single_spread(spdid, instrumentname):
 
     # 10) Example condition to create a new position
     #     (You can adapt the logic as you wish; this is just a sample.)
-    if (abs(ltp) > actual_spread) and (ltp != 0):
+    if (abs(ltp) < actual_spread) and (ltp != 0):
         buy_instrument_name = instrumentname.get(str(buy_leg), "Unknown")
         sell_instrument_name = instrumentname.get(str(sell_leg), "Unknown")
 
@@ -245,6 +241,7 @@ def process_spread_data():
         futures_map = {
             executor.submit(process_single_spread, int(spid), instrumentname): spid
             for spid in spd
+            
         }
         for future in futures_map:
             spid = futures_map[future]
@@ -498,7 +495,7 @@ def live_positions_view():
 # ---------------------------------------------------------------------------
 # Import the new OrderManager class
 # ---------------------------------------------------------------------------
-from OrderManager import OrderManager  # Adjust the path as needed
+from OrderManager import OrderManager 
 
 # ---------------------------------------------------------------------------
 # New Flask route for placing orders
@@ -520,7 +517,7 @@ def place_order():
     buy_price = data.get("buy_price")
     sell_price = data.get("sell_price")
     quantity=buy_quantity*lotsizejson.get(str(buy_ticker_id),0)
-
+#this below orders is just to view what data we are receiving from frontend
     orders={
   "orders": [
     {
@@ -554,10 +551,13 @@ def place_order():
        json.dump(orders, f)
     # Additional validation logic or actual order logic...
     #return jsonify({"message": "Order was placed (dummy response)"}), 200
-    # 2) Create an OrderManager instance (use default or custom URL)
+
+
+
+    # 2) Create an OrderManager instance
     order_manager = OrderManager() 
 
-   
+   #Placing Actual Order
     result = order_manager.placeorder_basket(
         buy_ticker_id=buy_ticker_id,
         buy_quantity=quantity,
